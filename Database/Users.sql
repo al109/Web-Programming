@@ -6,4 +6,4 @@ CREATE TABLE Users(
   password VARCHAR(30)
 );
 
-INSERT INTO Users VALUES("Coburn", "Andrew", "ajc15@hw.ac.uk", "AJC257", "example1234");
+INSERT INTO Users VALUES("AJC257", "Coburn", "Andrew", "ajc15@hw.ac.uk", "example1234");
