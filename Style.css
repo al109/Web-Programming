@@ -1,0 +1,13 @@
+#gameBody {
+  background-image: url("Images/placeholder-background.jpg");
+  background-repeat: repeat;
+}
+
+#logout {
+  background-color: #b3b3cc;
+  padding: 15px 35px;
+  font-size: 20px;
+  border-radius: 15px;
+  position:absolute;
+  left:90%;
+}
