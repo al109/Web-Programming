@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
 body{
@@ -59,23 +59,3 @@ body{
 
 }
 
-=======
->>>>>>> 859efcc7123b3bd0553551331e07a47b797d0cd1
-#gameBody {
-  background-image: url("Images/placeholder-background.jpg");
-  background-repeat: repeat;
-}
-
-#logout {
-  background-color: #b3b3cc;
-  padding: 15px 35px;
-  font-size: 20px;
-  border-radius: 15px;
-<<<<<<< HEAD
-  position:absolute;
-  left:90%;
-=======
-  position: absolute;
-  left: 90%;
->>>>>>> 859efcc7123b3bd0553551331e07a47b797d0cd1
-}
