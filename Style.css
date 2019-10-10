@@ -1,0 +1,73 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+body{
+  margin: 0;
+  padding: 5px; /*all four paddings are 5px*/
+  font-family: Monospace;
+  background: url(space.jpg) no-repeat;
+  background-size: cover; /*Resize the background image to cover the entire container*/
+}
+.login-box{
+  color: white;
+  width: 280px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /*The transform property applies a 2D or 3D transformation to an element. This property allows you to rotate, scale, move, skew, etc., elements.*/
+
+}
+.login-box h1{
+  float: left;
+  padding: 10px 5px; /*top and bottom paddings are 10px, right and left paddings are 5px*/
+  font-size: 50px;
+  border-bottom: 5px solid;
+  margin-bottom: 20px;
+}
+.textbox{
+  width: 100%;
+  overflow: hidden; /*The overflow is clipped, and the rest of the content is hidden*/
+  font-size: 20px;
+  padding: 8px 0;
+  margin: 8px 0;
+  border-bottom: 1px solid white;
+}
+.textbox i{
+  width: 26px;
+  float: left;
+  text-align: center;
+}
+.textbox input{
+  color: white;
+  font-size: 18px;
+  width: 80%;
+  float: left;
+  margin: 0 10px;
+  border: none;
+  outline: none;
+  background: none;
+}
+.button{
+  width: 100%;
+  background: none;
+  border: 5px solid white;
+  color:white;
+  padding: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  margin: 20px 0;
+
+}
+
+#gameBody {
+  background-image: url("Images/placeholder-background.jpg");
+  background-repeat: repeat;
+}
+
+#logout {
+  background-color: #b3b3cc;
+  padding: 15px 35px;
+  font-size: 20px;
+  border-radius: 15px;
+  position:absolute;
+  left:90%;
+}
