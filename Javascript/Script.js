@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+
+=======
 var myGameArea = {
   canvas : document.createElement("canvas"),
   start : function() {
@@ -28,3 +31,4 @@ function openNav() {
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
 }
+>>>>>>> 173ab77da69abe0b6865c2e9e85d0f49a9444a5e
