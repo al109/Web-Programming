@@ -1,6 +1,10 @@
 #gameBody {
-  background-image: url("Images/placeholder-background.jpg");
+<<<<<<< HEAD
+  background-image: url("Style/Images/placeholder-background.jpg");
   background-repeat: repeat;
+=======
+  background-color: black;
+>>>>>>> 084518699cfca0f85220daa05d80fde5924af510
 }
 
 #options {
@@ -19,7 +23,7 @@
   top: 0;
   right: 0;
   background-color: #111;
-  background-image: url("Images/placeholder-background.jpg");
+  background-image: url("Style/Images/placeholder-background.jpg");
   background-repeat: repeat;
   opacity: 50%;
   overflow-x: hidden;
@@ -61,7 +65,7 @@ body{
   margin: 0;
   padding: 5px; /*all four paddings are 5px*/
   font-family: Monospace;
-  background: url(space.jpg) no-repeat;
+  background: url("Images/space.jpg") no-repeat;
   background-size: cover; /*Resize the background image to cover the entire container*/
 }
 .login-box{
