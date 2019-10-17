@@ -5,10 +5,17 @@
 
 #options {
   background-color: #b3b3cc;
+  border: 1px solid;
+  border-bottom-color: #73706f;
+  border-right-color: #73706f;
+  border-left-color: white;
+  border-top-color: white;
+  border-width: 5px;
+  border-radius: 5px;
   width: 2.5%;
   height: 5%;
   position: absolute;
-  left: 95%;
+  left: 96%;
 }
 
 .sidenav {
