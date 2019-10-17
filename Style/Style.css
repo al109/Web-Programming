@@ -20,7 +20,7 @@
   background-color: #111;
   background-image: url("Images/placeholder-background.jpg");
   background-repeat: repeat;
-  opacity: 50%;
+  opacity: 0.5;
   overflow-x: hidden;
   padding-top: 60px;
   transition: 0.25s;
@@ -56,7 +56,7 @@
 
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
-body{
+#loginBody{
   margin: 0;
   padding: 5px; /*all four paddings are 5px*/
   font-family: Monospace;
