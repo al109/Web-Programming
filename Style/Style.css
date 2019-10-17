@@ -1,5 +1,10 @@
 #gameBody {
+<<<<<<< HEAD
+  background-image: url("Style/Images/placeholder-background.jpg");
+  background-repeat: repeat;
+=======
   background-color: black;
+>>>>>>> 084518699cfca0f85220daa05d80fde5924af510
 }
 
 #options {
