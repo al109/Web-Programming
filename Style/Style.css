@@ -1,6 +1,5 @@
 #gameBody {
-  background-image: url("Images/placeholder-background.jpg");
-  background-repeat: repeat;
+  background-color: black;
 }
 
 #options {
@@ -61,7 +60,7 @@ body{
   margin: 0;
   padding: 5px; /*all four paddings are 5px*/
   font-family: Monospace;
-  background: url(space.jpg) no-repeat;
+  background: url("Images/space.jpg") no-repeat;
   background-size: cover; /*Resize the background image to cover the entire container*/
 }
 .login-box{
