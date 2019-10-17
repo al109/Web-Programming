@@ -1,10 +1,6 @@
 #gameBody {
-<<<<<<< HEAD
-  background-image: url("Style/Images/placeholder-background.jpg");
+  background-image: url("Images/placeholder-background.jpg");
   background-repeat: repeat;
-=======
-  background-color: black;
->>>>>>> 084518699cfca0f85220daa05d80fde5924af510
 }
 
 #options {
@@ -22,10 +18,7 @@
   z-index: 1;
   top: 0;
   right: 0;
-  background-color: #111;
-  background-image: url("Images/placeholder-background.jpg");
-  background-repeat: repeat;
-  opacity: 0.5;
+  background-color: grey;
   overflow-x: hidden;
   padding-top: 60px;
   transition: 0.25s;
@@ -35,7 +28,7 @@
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: grey;
+  color: black;
   display: block;
   transition: 0.2s;
 }
