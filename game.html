@@ -1,25 +1,18 @@
 <!DOCTYPE html>
-<head>
-  <link rel="stylesheet" type="text/css" href="Style/Style.css">
-  <script src="Javascript/Script.js"></script>
-  <title>Game</title>
-</head>
-<body id="gameBody">
-  <!--
-  <a href="index.html">
-    <input id="logout" type="button" name="logout" value="Log Out">
-  </a>
--->
+  <head>
+    <link rel="stylesheet" type="text/css" href="Style/Style.css">
+    <script src="Javascript/Script.js"></script>
+    <title>Game</title>
+  </head>
+  <body id="gameBody">
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="index.html">Log Out</a>
+      <a href="customise.html">Customise</a>
+    </div>
 
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="index.html">Log Out</a>
-</div>
-
-<!-- Use any element to open the sidenav -->
-<span onclick="openNav()">
-  <input id="options" type="image" name="options" src="Style/Images/options.png">
-</span>
-
-</body>
+    <span onclick="openNav()">
+      <input id="options" type="image" name="options" src="Style/Images/options.png">
+    </span>
+  </body>
 </html>
