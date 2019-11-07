@@ -1,6 +1,7 @@
 #gameBody {
-  background-image: url("Images/placeholder-background.jpg");
-  background-repeat: repeat;
+  background: url("Images/space.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #options {
@@ -16,6 +17,10 @@
   height: 5%;
   position: absolute;
   left: 96%;
+}
+
+#customShip {
+position:absolute;left:0; top:0;" height="80" width="80"
 }
 
 .sidenav {
