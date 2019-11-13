@@ -19,8 +19,9 @@
   left: 96%;
 }
 
-#customShip {
-position:absolute;left:0; top:0;" height="80" width="80"
+.customShip {
+  height: 90px;
+  width: 90px;
 }
 
 .sidenav {
@@ -122,6 +123,11 @@ position:absolute;left:0; top:0;" height="80" width="80"
   cursor: pointer;
   margin: 20px 0;
 
+}
+
+.button:focus {
+  background: white;
+  color: black;
 }
 
 }
