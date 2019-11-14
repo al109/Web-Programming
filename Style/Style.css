@@ -1,5 +1,5 @@
 #gameBody {
-  background: url("Images/space.jpg");
+  background: url("Images/space2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -71,7 +71,7 @@
   margin: 0;
   padding: 5px; /*all four paddings are 5px*/
   font-family: Monospace;
-  background: url("Images/space.jpg") no-repeat;
+  background: url("Images/space2.jpg") no-repeat;
   background-size: cover; /*Resize the background image to cover the entire container*/
 }
 .login-box{
