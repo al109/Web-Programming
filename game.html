@@ -5,12 +5,13 @@
     <title>Game</title>
     <style>
     canvas {
-        
+
         background-image: url("Style/Images/sapce2.jpg");
         position: absolute;
 
     }
     </style>
+    <img src="Style/Images/ship.png" id="ship" width="30" height="30" style="display: none;">
   </head>
   <body id="gameBody" onload="startGame()">
     <div id="mySidenav" class="sidenav">
@@ -22,7 +23,7 @@
     <span onclick="openNav()">
       <input id="options" type="image" name="options" src="Style/Images/options.png">
     </span>
-<script src="Javascript/GameScript.js"> </script>
+<script src="Javascript/GameScript.js">myGamePiece.backgroundImage = url("Style/Images/ship.png") </script>
 
   </body>
 </html>

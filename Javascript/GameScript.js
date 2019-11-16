@@ -2,14 +2,15 @@ var myGamePiece;
 
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(30, 30, "red", 10, 120);
+    myGamePiece = new component(40, 40, "red", 10, 120);
+
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
         this.canvas.width = 1400;
-        this.canvas.height = 750;
+        this.canvas.height = 760;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20);
@@ -33,10 +34,11 @@ function component(width, height, color, x, y) {
     this.speedY = 0;
     this.x = x;
     this.y = y;
+    image = document.getElementById("ship");
     this.update = function() {
         ctx = myGameArea.context;
         ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(image, this.x, this.y,this.width,this.height);
     }
     this.newPos = function() {
         this.x += this.speedX;
@@ -48,10 +50,10 @@ function updateGameArea() {
     myGameArea.clear();
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;
-    if (myGameArea.key && myGameArea.key == 37) {if(this.x == 0){myGamePiece.speedX = 0;}else{myGamePiece.speedX = -15;}}
-    if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 15; }
-    if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -15; }
-    if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 15; }
+    if (myGameArea.key && myGameArea.key == 37) {if(myGamePiece.x <= 10){myGamePiece.speedX = 0;}else{myGamePiece.speedX = -15;}}
+    if (myGameArea.key && myGameArea.key == 39) {if(myGamePiece.x >= 1320){myGamePiece.speedX = 0;}else{myGamePiece.speedX = 15;} }
+    if (myGameArea.key && myGameArea.key == 38) {if(myGamePiece.y <= 10){myGamePiece.speedY = 0;}else{myGamePiece.speedY = -15;} }
+    if (myGameArea.key && myGameArea.key == 40) {if(myGamePiece.y >= 720){myGamePiece.speedY = 0;}else{myGamePiece.speedY = 15;} }
     myGamePiece.newPos();
     myGamePiece.update();
 }
