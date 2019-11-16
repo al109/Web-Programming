@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<style>
-canvas {
-    border:1px solid #d3d3d3;
-    background-color: #f1f1f1;
-}
-</style>
-</head>
-<body onload="startGame()">
-<script>
-
 var myGamePiece;
 
 function startGame() {
@@ -22,7 +8,7 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 1900;
+        this.canvas.width = 1400;
         this.canvas.height = 750;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
@@ -62,13 +48,10 @@ function updateGameArea() {
     myGameArea.clear();
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;
-    if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -10; }
-    if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 10; }
-    if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -10; }
-    if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 10; }
+    if (myGameArea.key && myGameArea.key == 37) {if(this.x == 0){myGamePiece.speedX = 0;}else{myGamePiece.speedX = -15;}}
+    if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 15; }
+    if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -15; }
+    if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 15; }
     myGamePiece.newPos();
     myGamePiece.update();
 }
-</script>
-
-</html>
