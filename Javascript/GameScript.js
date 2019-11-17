@@ -25,7 +25,6 @@ var myGameArea = {
     clear : function(){
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
-}
 
 function component(width, height, color, x, y) {
     this.gamearea = myGameArea;
