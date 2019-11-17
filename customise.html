@@ -7,7 +7,7 @@
   </head>
 
 <body id="loginBody">
-
+<form action="dbConnect.php" method="post">
   <div class = "login-box">
     <h1>Choose Your Ship!</h1>
 <!--
@@ -35,42 +35,41 @@
       </tr>
       <tr>
         <td>
-          <input class="button" type="button" name="login" value="Ship 1">
+          <input class="button" type="button" name="shipNum" value="Ship 1">
         </td>
         <td>
-          <input class="button" type="button" name="login" value="Ship 2">
+          <input class="button" type="button" name="shipNum" value="Ship 2">
         </td>
         <td>
-          <input class="button" type="button" name="login" value="Ship 3">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <img src="Style/Images/ship.png" class="customShip">
-        </td>
-        <td>
-          <img src="Style/Images/ship.png" class="customShip">
-        </td>
-        <td>
-          <img src="Style/Images/ship.png" class="customShip">
+          <input class="button" type="button" name="shipNum" value="Ship 3">
         </td>
       </tr>
       <tr>
         <td>
-          <input class="button" type="button" name="login" value="Ship 4">
+          <img src="Style/Images/ship.png" class="customShip">
         </td>
         <td>
-          <input class="button" type="button" name="login" value="Ship 5">
+          <img src="Style/Images/ship.png" class="customShip">
         </td>
         <td>
-          <input class="button" type="button" name="login" value="Ship 6">
+          <img src="Style/Images/ship.png" class="customShip">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input class="button" type="button" name="shipNum" value="Ship 4">
+        </td>
+        <td>
+          <input class="button" type="button" name="shipNum" value="Ship 5">
+        </td>
+        <td>
+          <input class="button" type="button" name="shipNum" value="Ship 6">
         </td>
       </tr>
     </table>
 
-    <a href="game.html">
-      <input class="button" type="button" name="login" value="OK">
-    </a>
+      <input class="button" type="submit" name="submit" value="OK">
   </div>
+</form>
 </body>
 </html>
