@@ -1,4 +1,5 @@
 var myGamePiece;
+var socket = io.connect('http://localhost:2000');
 
 function startGame() {
     myGameArea.start();
