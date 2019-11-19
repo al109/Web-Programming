@@ -15,4 +15,8 @@ CREATE TABLE SpaceShip(
 );
 
 INSERT INTO Users VALUES("AJC257", "Coburn", "Andrew", "ajc15@hw.ac.uk", "example1234");
-INSERT INTO SpaceShip VALUES("U.S.S Example", "AJC257", "green", "purple");
+INSERT INTO Users VALUES("Test", "test", "test", "test@hw.ac.uk", "test1234");
+INSERT INTO Users VALUES("Example", "example", "example", "example@hw.ac.uk", "example1234");
+INSERT INTO SpaceShip VALUES("U.S.S AJC", "AJC257", "green", "purple");
+INSERT INTO SpaceShip VALUES("U.S.S Test", "Test", "red", "blue");
+INSERT INTO SpaceShip VALUES("U.S.S Example", "Example", "pink", "black");

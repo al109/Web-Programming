@@ -10,7 +10,9 @@ $shiptype = $_POST["shipNum"];
 
 $db->exec("INSERT INTO Users VALUES('AJC257', 'Ship 3');");
 
+require 'game.html';
 ?>
+<<<<<<< HEAD
 <!DOCTYPE html>
   <head>
     <link rel="stylesheet" type="text/css" href="Style/Style.css">
@@ -43,3 +45,5 @@ $db->exec("INSERT INTO Users VALUES('AJC257', 'Ship 3');");
 
   </body>
 </html>
+=======
+>>>>>>> da02a40beaf3d8e914e0676d0c023eca71775046
