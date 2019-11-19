@@ -38,7 +38,7 @@ $db->exec("INSERT INTO Users VALUES('AJC257', 'Ship 3');");
       <input id="options" type="image" name="options" src="Style/Images/options.png">
     </span>
     <canvas id="canvas"></canvas>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
+
 <script src="Javascript/GameScript2.js">myGamePiece.backgroundImage = url("Style/Images/ship.png")> </script>
 
   </body>

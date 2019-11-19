@@ -1,3 +1,4 @@
+var socket = io.connect('http://localhost:2000');
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
 
@@ -62,12 +63,6 @@ function update() {
     ctx.arc(x, y, 5, 0, Math.PI * 2);
 
     ctx.drawImage(image, x,y, 40,40);
-}
-function rotation(degrees){
-  ctx.translate( x+width/2, y+height/2 );
-  ctx.rotate( * Math.PI / 180);
-
-  ctx.drawImage(image, x,y, 40,40);
 }
 update();
 
