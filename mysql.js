@@ -1,10 +1,10 @@
 let mysql = require('mysql');
 
 let connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'todoapp'
+    host: 'sql2.freesqldatabase.com',
+    user: 'sql2312807',
+    password: 'yB7%iC5*',
+    database: 'sql2312807'
 });
 
 connection.connect(function(err) {
