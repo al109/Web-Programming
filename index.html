@@ -3,8 +3,10 @@
   <head>
     <meta charset = "utf-8">
     <title>Login Page</title>
-    
+
     <link rel="stylesheet" href="Style/Style.css">
+
+
   </head>
 
 <body id="loginBody">
@@ -14,12 +16,17 @@
     <h1>Login</h1>
     <div class="textbox">
       <i class="fa fa-user-o" aria-hidden="true"></i>
-      <input type="text" placeholder="Username" name="username" value="">
+      <input id="userInput" type="text" placeholder="Username" name="username" value="">
     </div>
 
-    <a href="customise.html">
-      <input class="button" type="button" name="login" value="Sign In">
+    <a href = "customise.html">
+      <input id="loginBtt" class="button" type="button" name="login" value="Sign In">
     </a>
+
+
   </div>
-</body>
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
+
+<script src ="Javascript/Potato.js"> </script>
+  </body>
 </html>

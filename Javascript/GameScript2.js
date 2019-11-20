@@ -1,6 +1,6 @@
 image2 = document.getElementById("bullet");
 image = document.getElementById("ship");
-// var socket = io.connect('http://localhost:2000');
+var socket = io.connect('http://localhost:2000');
 var friction = 0.98
 function startGame() {
 
@@ -133,3 +133,4 @@ function updateGameArea() {
     
   
 }
+
