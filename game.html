@@ -4,17 +4,10 @@
 
     <script src="Javascript/Script.js"></script>
     <title>Game</title>
-    <style>
-    canvas {
-
-        background-image: url("Style/Images/sapce2.jpg");
-        position: absolute;
-
-    }
-    </style>
     <img src="Style/Images/ship.png" id="ship" width="30" height="30" style="display: none;">
+    <img src="Style/Images/bullet.jpg" id="bullet" width="30" height="30" style="display: none;">
   </head>
-  <body id="gameBody">
+  <body id="gameBody" onload="startGame()">
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <a href="index.html">Log Out</a>
@@ -26,7 +19,7 @@
     </span>
     <canvas id="canvas"></canvas>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
-<script src="Javascript/GameScript2.js">myGamePiece.backgroundImage = url("Style/Images/ship.png")> </script>
+<script src="Javascript/GameScript2.js"> </script>
 
   </body>
 </html>
