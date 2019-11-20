@@ -17,5 +17,5 @@ console.log("Server started");
 var io = socket(serv);
 
 io.on('connection',function(socket){
-  console.log('made socket connection')
+  console.log('made socket connection',socket.id)
 });
