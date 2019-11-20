@@ -1,4 +1,5 @@
 var socket = io.connect('http://localhost:2000');
+
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
 
