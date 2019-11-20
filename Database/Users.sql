@@ -1,3 +1,4 @@
+/*
 CREATE TABLE Users(
   username VARCHAR(15) NOT NULL PRIMARY KEY,
   surname VARCHAR(15),
@@ -20,3 +21,9 @@ INSERT INTO Users VALUES("Example", "example", "example", "example@hw.ac.uk", "e
 INSERT INTO SpaceShip VALUES("U.S.S AJC", "AJC257", "green", "purple");
 INSERT INTO SpaceShip VALUES("U.S.S Test", "Test", "red", "blue");
 INSERT INTO SpaceShip VALUES("U.S.S Example", "Example", "pink", "black");
+*/
+
+CREATE TABLE Users(
+  username VARCHAR(15) NOT NULL PRIMARY KEY,
+  shiptype INTEGER
+);
