@@ -3,7 +3,7 @@ var socket = io.connect('http://localhost:2000');
 
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(40, 40, "red", 10, 120);
+    myGamePiece = new component();
 
 }
 
@@ -25,6 +25,7 @@ var myGameArea = {
     clear : function(){
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
+}
 
 function component(width, height, color, x, y) {
     this.gamearea = myGameArea;
