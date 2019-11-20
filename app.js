@@ -25,7 +25,7 @@ console.log("Server started");
 
 var io = socket(serv);
 
-io.on('connection',function(socket){
+io.sockets.on('connection',function(socket){
   console.log('made socket connection',socket.id)
   socket.on('username',function(data){
     con.connect(function(err) {

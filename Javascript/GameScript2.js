@@ -5,6 +5,17 @@ var canvas = document.getElementById("canvas"),
 
  canvas.width = window.innerWidth - 150;
  canvas.height = window.innerHeight;
+
+ var userInput = document.getElementById('userInput');
+ var loginButton = document.getElementById('loginBtt');
+
+ //emit an even when someone logs in with new user
+ loginButton.addEventListener('click',function(){
+   socket.emit('username',{
+     name: userInput.value
+
+   });
+ });
 var x = 150,
     y = 150,
     velY = 0,
