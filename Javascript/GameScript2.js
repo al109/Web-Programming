@@ -70,9 +70,6 @@ function shipComponent() {
               }
               
           }
-          
-            
-         
     }
 function bulletComponent(){
     var bulY = myGamePiece.y;
@@ -126,7 +123,7 @@ function updateGameArea() {
     myGamePiece.velY *= friction;
     myGamePiece.velX *= friction;
    
-    bullet.update();
+
     myGamePiece.newPos();
     myGamePiece.update();
     
