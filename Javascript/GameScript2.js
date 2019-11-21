@@ -2,49 +2,25 @@ image2 = document.getElementById("bullet");
 image = document.getElementById("ship");
 var socket = io.connect('http://localhost:2000');
 var friction = 0.98
+
 function startGame() {
 
     myGameArea.start();
     myGamePiece = new shipComponent();
-    
+    socket.emit('start',{
+      name: "Yooo, it started lads"
+
+    });
 }
 function createBullet(){
     bullet = new bulletComponent();
 }
 
-<<<<<<< HEAD
- canvas.width = window.innerWidth - 150;
- canvas.height = window.innerHeight;
-
- var userInput = document.getElementById('userInput');
- var loginButton = document.getElementById('loginBtt');
-
- //emit an even when someone logs in with new user
- loginButton.addEventListener('click',function(){
-   socket.emit('username',{
-     name: userInput.value
-
-   });
- });
-var x = 150,
-    y = 150,
-    velY = 0,
-    velX = 0,
-    speed = 2,
-    friction = 0.98,
-    keys = [];
-    oldDegrees = 0
-    newDegrees = 0
-    image = document.getElementById("ship");
-function update() {
-    requestAnimationFrame(update);
-=======
 function moveBullet(){
->>>>>>> ee4f1d152a71d6f872b260b914e0d4c376896d50
 
 }
  var myGameArea = {
-    
+
      canvas : document.createElement("canvas"),
      start : function() {
         this.canvas.width = window.innerWidth -150 ;
@@ -63,7 +39,7 @@ function moveBullet(){
      clear : function(){
          this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
      }
-     
+
 
     }
 
@@ -80,7 +56,7 @@ function shipComponent() {
               ctx.beginPath();
               ctx.arc(this.x, this.y, 5, 0, Math.PI * 2);
               ctx.drawImage(image, this.x,this.y, 40,40)
-              
+
           }
           this.newPos = function() {
               this.x += this.velX;
@@ -96,7 +72,7 @@ function shipComponent() {
               } else if (this.y <= 5) {
                 this.y = window.innerHeight - 40;
               }
-              
+
           }
     }
 function bulletComponent(){
@@ -106,21 +82,21 @@ function bulletComponent(){
         ctx = myGameArea.context;
         ctx.beginPath();
         ctx.drawImage(image2, bulX,bulY, 10,10)
-        
+
     }
     this.newPos = function(){
-        
+
         bulY -= 15;
     }
 }
 
 function updateGameArea() {
     myGameArea.clear();
-   
+
     if (myGameArea.key && myGameArea.key == 32) {
-            
+
         createBullet();
-    
+
     }
     if (myGameArea.key && myGameArea.key == 87) {
         if (myGamePiece.velY > -myGamePiece.speed) {
@@ -145,17 +121,16 @@ function updateGameArea() {
             myGamePiece.velX--;
         }
     }
-    
-   
-   
+
+
+
     myGamePiece.velY *= friction;
     myGamePiece.velX *= friction;
-   
+
 
     myGamePiece.newPos();
     myGamePiece.update();
-    
-    
-  
-}
 
+
+
+}

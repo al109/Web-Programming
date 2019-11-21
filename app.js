@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express();
 var serv = require('http').Server(app);
-var socket = require('socket.io')
+
 let mysql = require('mysql');
 
 let con = mysql.createConnection({
@@ -23,10 +23,18 @@ app.use('/Style',express.static(__dirname + '/Style'));
 serv.listen(2000);
 console.log("Server started");
 
-var io = socket(serv);
+var io = require('socket.io')(serv,{});
+var SOCKET_LIST = {};
 
 io.sockets.on('connection',function(socket){
   console.log('made socket connection',socket.id)
+  socket.on('start',function(data){
+    socket.x = 0;
+    socket.y = 0;
+    SOCKET_LIST[socket.id] = socket;
+    console.log(data.name);
+    console.log(socket.id);
+  });
   socket.on('username',function(data){
     con.connect(function(err) {
     var sql = 'INSERT INTO Users (username) VALUES ?';
@@ -39,3 +47,21 @@ io.sockets.on('connection',function(socket){
   });
   });
 });
+
+setInterval(function(){
+  var pack = [];
+  for(var i in SOCKET_LIST){
+    var socket = SOCKET_LIST[i];
+    socket.x++;
+    socket.y++;
+    pack.push({
+      x:socket.x,
+      y:socket.y
+    });
+  }
+  for(var i in SOCKET_LIST){
+    var socket = SOCKET_LIST[i];
+    socket.emit('newPositions',pack);
+  }
+
+},1000/25);
