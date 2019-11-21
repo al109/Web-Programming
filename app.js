@@ -25,16 +25,70 @@ console.log("Server started");
 
 var io = require('socket.io')(serv,{});
 var SOCKET_LIST = {};
+var PLAYER_LIST = {};
+
+var Player = function(id){
+  var self = {
+    x:250,
+    y:250,
+    id:id,
+    number:"" + Math.floor(10 * Math.random()),
+    pressingRight:false,
+    pressingLeft:false,
+    pressingUp:false,
+    pressingDown:false,
+    rotation:0,
+    maxSpd:10,
+  }
+  self.updatePosition = function(){
+    if(self.pressingRight)
+      self.x += self.maxSpd;
+    if(self.pressingLeft)
+      self.x -= self.maxSpd;
+    if(self.pressingUp)
+      self.y -= self.maxSpd;
+    if(self.pressingDown)
+      self.y += self.maxSpd;
+  }
+  return self;
+}
 
 io.sockets.on('connection',function(socket){
   console.log('made socket connection',socket.id)
+  var player = Player(socket.id);
+  SOCKET_LIST[socket.id] = socket;
+  PLAYER_LIST[socket.id] = player;
+
   socket.on('start',function(data){
-    socket.x = 0;
-    socket.y = 0;
-    SOCKET_LIST[socket.id] = socket;
+
     console.log(data.name);
     console.log(socket.id);
+
+
+    socket.on('disconnect',function(){
+      delete SOCKET_LIST[socket.id];
+      delete PLAYER_LIST[socket.id];
+    });
+
+    socket.on('keyPress',function(data){
+      if(data.inputId === 'left')
+        player.pressingLeft = data.state;
+        player.rotation = data.rotation;
+      if(data.inputId === 'right')
+        player.pressingRight = data.state;
+        player.rotation = data.rotation;
+      if(data.inputId === 'up')
+        player.pressingUp = data.state;
+        player.rotation = data.rotation;
+      if(data.inputId === 'down')
+        player.pressingDown = data.state;
+        player.rotation = data.rotation;
+    });
+
   });
+
+
+
   socket.on('username',function(data){
     con.connect(function(err) {
     var sql = 'INSERT INTO Users (username) VALUES ?';
@@ -50,13 +104,13 @@ io.sockets.on('connection',function(socket){
 
 setInterval(function(){
   var pack = [];
-  for(var i in SOCKET_LIST){
-    var socket = SOCKET_LIST[i];
-    socket.x++;
-    socket.y++;
+  for(var i in PLAYER_LIST){
+    var player = PLAYER_LIST[i];
+    player.updatePosition();
     pack.push({
-      x:socket.x,
-      y:socket.y
+      x:player.x,
+      y:player.y,
+      rotation:player.rotation
     });
   }
   for(var i in SOCKET_LIST){
