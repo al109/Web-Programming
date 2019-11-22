@@ -1,131 +1,196 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+/* css styling for body in game.html */
 #gameBody {
+  /* set the background image to spage2.jpg found in the Images File inside Style */
   background: url("Images/space2.jpg");
+  /* set the background image to repeat and cover the whole screen */
   background-repeat: repeat;
   background-size: cover;
 }
 
+/* css styling for the options button in game.html */
 #options {
-  background-color: #b3b3cc;
+  /* create a border around the button */
   border: 1px solid;
+  /* set the colour of the background of the button and the border surrounding it */
+  background-color: #b3b3cc;
   border-bottom-color: #73706f;
   border-right-color: #73706f;
   border-left-color: white;
   border-top-color: white;
+  /* set the width and radius of the border to 5px */
   border-width: 5px;
   border-radius: 5px;
+  /* set the width of the button to 2.5% and the height to 5% */
   width: 2.5%;
   height: 5%;
+  /* set the type of positioning to absolute for full control over where the button is */
   position: absolute;
+  /* set the button to appear 96% of the webpage's length from the left hand side of the screen */
   left: 96%;
 }
 
+/* css styling for the ship images inside customise.html */
 .customShip {
+  /* set their height and width to 90px */
   height: 90px;
   width: 90px;
 }
 
+/* css styling for the sidenav menu in game.html when the settings button is clicked */
 .sidenav {
+  /* set the sidenav menu to take up 100% of the height of the webpage, but have no width so
+  that it does not appear before the button is clicked */
   height: 100%;
   width: 0;
+  /* set its position to be fixed and its z index to 1 so that it will overlap elements with a lower z index */
   position: fixed;
   z-index: 1;
+  /* set it to appear at the top of the screen and the right of the screen */
   top: 0;
   right: 0;
+  /* change the background colour of the sidenav menu to grey */
   background-color: grey;
+  /* set it so that there will be no scroll bar in the sidenav menu */
   overflow-x: hidden;
+  /* add padding from the top of the page for the links */
   padding-top: 60px;
+  /* set the time for the sidenav to fully appear to 0.25 seconds */
   transition: 0.25s;
 }
 
+/* css styling for the links inside the sidenav menu */
 .sidenav a {
+  /* add padding around all sides of the with a larger padding to the left of the link */
   padding: 8px 8px 8px 32px;
+  /* set it so that the links are not underlined */
   text-decoration: none;
+  /* set the font size of the links to 25px */
   font-size: 25px;
+  /* set the colour of the text to black */
   color: black;
+  /* set it so that each link is on a new line and takes up the entire width of the sidenav */
   display: block;
+  /* set the transition time for the text to go from black to white when overed to 0.2 seconds */
   transition: 0.2s;
 }
 
+/* css styling for the links in the sidenav menu when they are hovered over by a mouse */
 .sidenav a:hover {
+  /* set the text colour to white */
   color: white;
 }
 
+/* css styling for the close button of the sidenav menu in game.html */
 .sidenav .closebtn {
+  /* set its positioning to absolute for full control over where it is */
   position: absolute;
+  /* set it to appear at the top of the sidenav menu, 25 pixels from the right of the screen */
   top: 0;
   right: 25px;
+  /* set the font size of the close button to 36px so that it is bigger in the side nav */
   font-size: 36px;
-  margin-left: 50px;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-/*Login Screen*/
-
-@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-
+/* css styling for the id loginBody in index.html */
 #loginBody{
-  margin: 0;
-  padding: 5px; /*all four paddings are 5px*/
+  /* set the padding on all sides of the elements to 5px */
+  padding: 5px;
+  /* set the font family to Monospace */
   font-family: Monospace;
+  /* set the background image of the body of index.html to space2.jpg with no repeat */
   background: url("Images/space2.jpg") no-repeat;
-  background-size: cover; /*Resize the background image to cover the entire container*/
+  /* cover the whole body with the background image */
+  background-size: cover;
 }
-.login-box{
+
+/* css styling for loginBox in index.html */
+.loginBox{
+  /* set the font colour to white */
   color: white;
+  /* set the width of the elements to 280px */
   width: 280px;
+  /* make their position absolute for full control over where they are on the screen */
   position: absolute;
+  /* set them to appear in the exact middle of the screen */
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /*The transform property applies a 2D or 3D transformation to an element. This property allows you to rotate, scale, move, skew, etc., elements.*/
+  /* translate is used to move them half of their width and height so as the above css lines will make it so that
+  the top left corner of the elements will in the middle of the screen */
+  transform: translate(-50%, -50%);
 
 }
-.login-box h1{
+
+/* css styling for h1 elements inside the class loginBody */
+.loginBox h1{
+  /* set it so that h1 will be towards the left of the container it is in */
   float: left;
-  padding: 10px 5px; /*top and bottom paddings are 10px, right and left paddings are 5px*/
+  /* set it so that the top and bottom will have padding of 10px and the left and right sides will have padding of 5px */
+  padding: 10px 5px;
+  /* set the font size to 50px */
   font-size: 50px;
+  /* add a border only to the bottom of the h1 element */
   border-bottom: 5px solid;
+  /* set a margin only on the bottom of the h1 element to be 20px */
   margin-bottom: 20px;
 }
+
+/* css styling for the class textbox inside index.html */
 .textbox{
+  /* set its width to 100% of the width of the container it is in */
   width: 100%;
-  overflow: hidden; /*The overflow is clipped, and the rest of the content is hidden*/
+  /* set it so that there will be no scroll bar on the input box */
+  overflow: hidden;
+  /* set the font size to 20px inside the input box */
   font-size: 20px;
-  padding: 8px 0;
-  margin: 8px 0;
+  /* add a padding and a margin to the top and bottom of the elements */
+  padding: 8px 0px;
+  margin: 8px 0px;
+  /* add a border only to the bottom of the text box */
   border-bottom: 1px solid white;
 }
-.textbox i{
-  width: 26px;
-  float: left;
-  text-align: center;
-}
+
+/* css styling for the input box inside the textbox class */
 .textbox input{
+  /* set the font colour to white */
   color: white;
+  /* set the font size to 18px */
   font-size: 18px;
+  /* set the width of the input box to 80% the width of its container */
   width: 80%;
-  float: left;
-  margin: 0 10px;
+  /* add a margin on both sides of the input box */
+  margin: 0px 10px;
+  /* set it so that there will be no default border outline or background in the input box */
   border: none;
   outline: none;
   background: none;
 }
-.button{
-  width: 100%;
-  background: none;
-  border: 5px solid white;
-  color:white;
-  padding: 5px;
-  font-size: 15px;
-  cursor: pointer;
-  margin: 20px 0;
 
+/* css styling for the button class */
+.button{
+  /* set the width of the button to 100% of the width of the container it is in */
+  width: 100%;
+  /* set there to be background in the button */
+  background: none;
+  /* set a border to appear on all sides of the button */
+  border: 5px solid white;
+  /* set the font colour to white */
+  color: white;
+  /* set padding on all sides of the elements with this class */
+  padding: 5px;
+  /* set the font size to 15px */
+  font-size: 15px;
+  /* make the mouse a pointer as if you are hovering over a link, as this does not happen by default */
+  cursor: pointer;
+  /* add a margin on the top and bottom of 20px */
+  margin: 20px 0px;
 }
 
+/* css styling for when a button gets focus */
 .button:focus {
+  /* set the background colour to white */
   background: white;
+  /* set the font colour to black */
   color: black;
 }

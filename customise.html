@@ -1,16 +1,24 @@
 <!DOCTYPE Html>
 <html>
   <head>
+    <!-- set the character set of this webpage to UTF-8 -->
     <meta charset = "utf-8">
+    <!-- set the title of this webpage to "Choose Your Ship" -->
     <title>Choose Your Ship</title>
+    <!-- link to the external css stylesheet -->
     <link rel="stylesheet" href="Style/Style.css">
   </head>
 
+<!-- set the body id to "loginBody" -->
 <body id="loginBody">
 
-  <div class = "login-box">
+  <!-- create a new div with class "login-box" which will hold the table -->
+  <div class = "loginBox">
+    <!-- create a h1 element with the text "Choose Your Ship!" -->
     <h1>Choose Your Ship!</h1>
+    <!-- create a table to hold the 6 different ship images and the buttons to select them -->
     <table>
+      <!-- create a table row that will hold 3 ship images -->
       <tr>
         <td>
           <img src="Style/Images/ship.png" class="customShip">
@@ -22,6 +30,7 @@
           <img src="Style/Images/ship3.png" class="customShip">
         </td>
       </tr>
+      <!-- create a table row that will hold 3 buttons to select one of the above ships -->
       <tr>
         <td>
           <input class="button" type="button" name="shipNum" value="Ship 1">
@@ -33,6 +42,7 @@
           <input class="button" type="button" name="shipNum" value="Ship 3">
         </td>
       </tr>
+      <!-- create a new table row to hold the last 3 ship images -->
       <tr>
         <td>
           <img src="Style/Images/ship4.png" class="customShip">
@@ -44,6 +54,7 @@
           <img src="Style/Images/ship6.png" class="customShip">
         </td>
       </tr>
+      <!-- create a final table row that will hold the 3 buttons to select the ships in the the row above -->
       <tr>
         <td>
           <input class="button" type="button" name="shipNum" value="Ship 4">
@@ -56,7 +67,9 @@
         </td>
       </tr>
     </table>
-      <a href = "game.html">
+
+    <!-- create a button with the link to game.html -->
+    <a href = "game.html">
       <input class="button" type="submit" name="submit" value="OK">
     </a>
   </div>

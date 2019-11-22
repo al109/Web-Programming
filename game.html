@@ -1,25 +1,36 @@
 <!DOCTYPE html>
   <head>
+    <!-- set this webpage to use the character set UTF-8 -->
+    <meta charset = "utf-8">
+    <!-- link to external css stylesheet -->
     <link rel="stylesheet" type="text/css" href="Style/Style.css">
-
+    <!-- link to the javascript file -->
     <script src="Javascript/Script.js"></script>
+    <!-- set the title of the webpage to "Game" -->
     <title>Game</title>
+    <!-- load in the images used for the users ship and the bullets they shoot -->
     <img src="Style/Images/ship.png" id="ship" width="30" height="30" style="display: none;">
     <img src="Style/Images/bullet.jpg" id="bullet" width="30" height="30" style="display: none;">
   </head>
+  <!-- set the body's id to gameBody -->
   <body id="gameBody" >
+    <!-- create a new div for the sidenav menu when the settings button is clicked -->
     <div id="mySidenav" class="sidenav">
+      <!-- create the links to close the sidenav, go to the log in page and go to the customise page -->
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <a href="index.html">Log Out</a>
       <a href="customise.html">Customise</a>
     </div>
 
+    <!-- create a span which when clicked calls the javascript function openNav() -->
     <span onclick="openNav()">
+      <!-- create the button that opens the sidenav menu -->
       <input id="options" type="image" name="options" src="Style/Images/options.png">
     </span>
+    <!-- create the canvas that the game will run on -->
     <canvas id="ctx" width = "500" height= "500" style="border:1px solid #000000;"></canvas>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
-<script src="Javascript/GameScript.js"> </script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
+    <script src="Javascript/GameScript.js"> </script>
 
   </body>
 </html>
