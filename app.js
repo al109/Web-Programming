@@ -55,12 +55,12 @@ var Player = function(id){
 
 io.sockets.on('connection',function(socket){
   console.log('made socket connection',socket.id)
-  var player = Player(socket.id);
-  SOCKET_LIST[socket.id] = socket;
-  PLAYER_LIST[socket.id] = player;
+  
 
   socket.on('start',function(data){
-
+    var player = Player(socket.id);
+    SOCKET_LIST[socket.id] = socket;
+    PLAYER_LIST[socket.id] = player;
     console.log(data.name);
     console.log(socket.id);
 
