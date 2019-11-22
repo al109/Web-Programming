@@ -27,7 +27,7 @@ var io = require('socket.io')(serv,{});
 var SOCKET_LIST = {};
 var PLAYER_LIST = {};
 
-var Player = function(id){
+var Player = function(id,rotation){
   var self = {
     x:250,
     y:250,
@@ -37,7 +37,7 @@ var Player = function(id){
     pressingLeft:false,
     pressingUp:false,
     pressingDown:false,
-    rotation:0,
+    rotation:rotation,
     maxSpd:10,
   }
   self.updatePosition = function(){
@@ -55,11 +55,11 @@ var Player = function(id){
 
 io.sockets.on('connection',function(socket){
   console.log('made socket connection',socket.id)
-  var player = Player(socket.id);
-  SOCKET_LIST[socket.id] = socket;
-  PLAYER_LIST[socket.id] = player;
 
   socket.on('start',function(data){
+    var player = Player(socket.id,0);
+    SOCKET_LIST[socket.id] = socket;
+    PLAYER_LIST[socket.id] = player;
 
     console.log(data.name);
     console.log(socket.id);
