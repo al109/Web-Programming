@@ -1,5 +1,3 @@
-@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-
 /* css styling for body in game.html */
 #gameBody {
   /* set the background image to spage2.jpg found in the Images File inside Style */
@@ -105,6 +103,27 @@
   background-size: cover;
 }
 
+/* css styling for the id info in index */
+#info {
+  /* set the font colour to white */
+  color: white;
+  /* set the font size to 40px */
+  font-size: 40px;
+  /* set the positioning to absolute for full control over where the element is */
+  position: absolute;
+  /* make it appear 38% of the windows width from the left hand side of the window*/
+  left: 20%;
+}
+
+#info h1 {
+  padding-left: 20%;
+}
+
+#info p{
+  font-size: 20px;
+
+}
+
 /* css styling for loginBox in index.html */
 .loginBox{
   /* set the font colour to white */
@@ -114,7 +133,7 @@
   /* make their position absolute for full control over where they are on the screen */
   position: absolute;
   /* set them to appear in the exact middle of the screen */
-  top: 50%;
+  top: 60%;
   left: 50%;
   /* translate is used to move them half of their width and height so as the above css lines will make it so that
   the top left corner of the elements will in the middle of the screen */
@@ -122,17 +141,17 @@
 
 }
 
-/* css styling for h1 elements inside the class loginBody */
-.loginBox h1{
-  /* set it so that h1 will be towards the left of the container it is in */
+/* css styling for h2 elements inside the class loginBody */
+.loginBox h2{
+  /* set it so that h2 will be towards the left of the container it is in */
   float: left;
   /* set it so that the top and bottom will have padding of 10px and the left and right sides will have padding of 5px */
   padding: 10px 5px;
   /* set the font size to 50px */
   font-size: 50px;
-  /* add a border only to the bottom of the h1 element */
+  /* add a border only to the bottom of the h2 element */
   border-bottom: 5px solid;
-  /* set a margin only on the bottom of the h1 element to be 20px */
+  /* set a margin only on the bottom of the h2 element to be 20px */
   margin-bottom: 20px;
 }
 
