@@ -115,13 +115,16 @@
   left: 20%;
 }
 
+/* css styling for the h1 element in info */
 #info h1 {
+  /* add padding to the left of the h1 element for 20% of the windows width */
   padding-left: 20%;
 }
 
+/* css styling for the p element in info */
 #info p{
+  /* set the font size to 20px */
   font-size: 20px;
-
 }
 
 /* css styling for loginBox in index.html */
