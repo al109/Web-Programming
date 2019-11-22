@@ -7,14 +7,17 @@ image = document.getElementById("ship");
 ctx.font = "30px Arial";
 var TO_RADIANS = Math.PI/180;
 var rot = 0;
-
+canvas = document.getElementById("ctx")
+canvas.width = window.innerWidth -150 ;
+canvas.height = window.innerHeight -15;
 socket.emit('start',{
   name: "Yooo, it started lads"
 
 });
 socket.on('newPositions',function(data){
-  ctx.clearRect(0,0,500,500);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
     for(var i = 0; i < data.length;i++)
+
       rotateAndPaintImage(ctx,image,data[i].rotation*TO_RADIANS,data[i].x,data[i].y,20,30);
 });
 
@@ -78,3 +81,6 @@ function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY
   context.rotate( -angleInRad );
   context.translate( -positionX, -positionY );
 }
+
+var playerBullets = [];
+
