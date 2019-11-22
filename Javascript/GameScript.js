@@ -49,22 +49,26 @@ document.onkeyup = function(event){
   if(event.keyCode==68)
     socket.emit('keyPress',{
       inputId:'right',
-      state:false
+      state:false,
+      rotation:90
 });
   else if(event.keyCode==83)
   socket.emit('keyPress',{
     inputId:'down',
-    state:false
+    state:false,
+    rotation:180
 });
   else if(event.keyCode==65)
   socket.emit('keyPress',{
     inputId:'left',
-    state:false
+    state:false,
+    rotation:270
 });
   else if(event.keyCode==87)
   socket.emit('keyPress',{
     inputId:'up',
-    state:false
+    state:false,
+    rotation:0
 });
 }
 function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {
