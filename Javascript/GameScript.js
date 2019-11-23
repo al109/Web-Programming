@@ -6,12 +6,13 @@ var ctx = c.getContext("2d");
 image = document.getElementById("ship");
 ctx.font = "30px Arial";
 var TO_RADIANS = Math.PI/180;
-var rot = 0;
+
 
 socket.emit('start',{
   name: "Yooo, it started lads"
 
 });
+
 socket.on('newPositions',function(data){
   ctx.clearRect(0,0,500,500);
     for(var i = 0; i < data.length;i++)
