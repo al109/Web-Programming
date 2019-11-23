@@ -118,4 +118,4 @@ setInterval(function(){
     socket.emit('newPositions',pack);
   }
 
-},1000/25);
+},1000/30);

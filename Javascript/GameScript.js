@@ -6,12 +6,21 @@ var ctx = c.getContext("2d");
 image = document.getElementById("ship");
 ctx.font = "30px Arial";
 var TO_RADIANS = Math.PI/180;
-var rot = 0;
+var username;
 canvas = document.getElementById("ctx")
 canvas.width = window.innerWidth -150 ;
 canvas.height = window.innerHeight -15;
+var userInput = document.getElementById('userInput');
+var loginButton = document.getElementById('loginBtt');
+//emit an even when someone logs in with new user
+if(username == null){
+loginButton.addEventListener('click',function(){
+  username = loginButton.value
+});
+}
 socket.emit('start',{
-  name: "Yooo, it started lads"
+
+  name: username
 
 });
 socket.on('newPositions',function(data){
@@ -83,4 +92,3 @@ function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY
 }
 
 var playerBullets = [];
-
