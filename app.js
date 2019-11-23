@@ -45,7 +45,7 @@ var Entity = function(){
     return self;
 }
 
-var Player = function(id){
+var Player = function(id,rotation){
     var self = Entity();
     self.id = id;
     self.number = "" + Math.floor(10 * Math.random());
@@ -57,6 +57,7 @@ var Player = function(id){
     self.pressingAttack = false;
     self.mouseAngle = 0;
     self.maxSpd = 10;
+    self.rotation = rotation;
 
     var super_update = self.update;
     self.update = function(){
@@ -94,19 +95,23 @@ var Player = function(id){
 }
 Player.list = {};
 Player.onConnect = function(socket){
-    var player = Player(socket.id);
+    var player = Player(socket.id,0);
     socket.on('keyPress',function(data){
         if(data.inputId === 'left')
             player.pressingLeft = data.state;
-        else if(data.inputId === 'right')
+            player.rotation = data.rotation;
+        if(data.inputId === 'right')
             player.pressingRight = data.state;
-        else if(data.inputId === 'up')
+            player.rotation = data.rotation;
+        if(data.inputId === 'up')
             player.pressingUp = data.state;
-        else if(data.inputId === 'down')
+            player.rotation = data.rotation;
+        if(data.inputId === 'down')
             player.pressingDown = data.state;
-        else if(data.inputId === 'attack')
+            player.rotation = data.rotation;
+        if(data.inputId === 'attack')
             player.pressingAttack = data.state;
-        else if(data.inputId === 'mouseAngle')
+        if(data.inputId === 'mouseAngle')
             player.mouseAngle = data.state;
     });
 }
@@ -121,7 +126,8 @@ Player.update = function(){
         pack.push({
             x:player.x,
             y:player.y,
-            number:player.number
+            number:player.number,
+            rotation:player.rotation
         });
     }
     return pack;

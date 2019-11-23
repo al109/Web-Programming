@@ -25,24 +25,56 @@ socket.on('newPositions',function(data){
 
           document.onkeydown = function(event){
               if(event.keyCode === 68)    //d
-                  socket.emit('keyPress',{inputId:'right',state:true});
+                  socket.emit('keyPress',{
+                    inputId:'right',
+                    state:true,
+                    rotation:90
+                  });
               else if(event.keyCode === 83)   //s
-                  socket.emit('keyPress',{inputId:'down',state:true});
+                  socket.emit('keyPress',{
+                    inputId:'down',
+                    state:true,
+                    rotation: 180
+                  });
               else if(event.keyCode === 65) //a
-                  socket.emit('keyPress',{inputId:'left',state:true});
+                  socket.emit('keyPress',{
+                    inputId:'left',
+                    state:true,
+                    rotation:270
+                  });
               else if(event.keyCode === 87) // w
-                  socket.emit('keyPress',{inputId:'up',state:true});
+                  socket.emit('keyPress',{
+                    inputId:'up',
+                    state:true,
+                    rotation:0
+                  });
 
           }
           document.onkeyup = function(event){
               if(event.keyCode === 68)    //d
-                  socket.emit('keyPress',{inputId:'right',state:false,rotation:90});
+                  socket.emit('keyPress',{
+                    inputId:'right',
+                    state:false,
+                    rotation:90
+                  });
               else if(event.keyCode === 83)   //s
-                  socket.emit('keyPress',{inputId:'down',state:false});
+                  socket.emit('keyPress',{
+                    inputId:'down',
+                    state:false,
+                    rotation:180
+                  });
               else if(event.keyCode === 65) //a
-                  socket.emit('keyPress',{inputId:'left',state:false});
+                  socket.emit('keyPress',{
+                    inputId:'left',
+                    state:false,
+                    rotation:270
+                  });
               else if(event.keyCode === 87) // w
-                  socket.emit('keyPress',{inputId:'up',state:false});
+                  socket.emit('keyPress',{
+                    inputId:'up',
+                    state:false,
+                    rotation:0
+                  });
           }
 
           document.onmousedown = function(event){
