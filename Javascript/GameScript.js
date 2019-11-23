@@ -18,7 +18,7 @@ socket.emit('start',{
 socket.on('newPositions',function(data){
   ctx.clearRect(0,0,canvas.width,canvas.height);
     for(var i = 0; i < data.player.length;i++)
-      rotateAndPaintImage(ctx,image,data[i].rotation*TO_RADIANS,data.player[i].x,data.player[i].y,20,30);
+      rotateAndPaintImage(ctx,image,data.player[i].rotation*TO_RADIANS,data.player[i].x,data.player[i].y,20,30);
     for(var i = 0 ; i < data.bullet.length; i++)
       ctx.fillRect(data.bullet[i].x-5,data.bullet[i].y-5,10,10);
           });
@@ -36,7 +36,7 @@ socket.on('newPositions',function(data){
           }
           document.onkeyup = function(event){
               if(event.keyCode === 68)    //d
-                  socket.emit('keyPress',{inputId:'right',state:false});
+                  socket.emit('keyPress',{inputId:'right',state:false,rotation:90});
               else if(event.keyCode === 83)   //s
                   socket.emit('keyPress',{inputId:'down',state:false});
               else if(event.keyCode === 65) //a
