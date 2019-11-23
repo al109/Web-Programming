@@ -1,32 +1,45 @@
 <!DOCTYPE Html>
 <html>
   <head>
+    <!-- set this webpage to use the character set UTF-8 -->
     <meta charset = "utf-8">
+    <!-- set the title of this page to "Login Page" -->
     <title>Login Page</title>
-
+    <!-- link to the external css stylesheet -->
     <link rel="stylesheet" href="Style/Style.css">
-
-
   </head>
 
+<!-- set the id of the body to "loginBody" -->
 <body id="loginBody">
+  <!-- create new div element to hold the game title and instructions -->
+  <div id="info">
+    <!-- create a h1 element for the game title -->
+    <h1>Space Gun</h1>
 
-  <div class = "login-box">
+    <!-- createa a paragraph element to show the instructions -->
+    <p>The main goal of Space Gun is to fly around and shoot the other players!<br>
+    Gain points for every opposing ship you shoot down, and try to be the highest scorer in the game!<br><br>
+    Use W,A,S and D to move your ship and the spacebar to shoot your ships guns!</p>
+  </div>
 
-    <h1>Login</h1>
+  <!-- create a new div to hold the login elements with class "login-box" -->
+  <div class = "loginBox">
+    <!-- create a new h1 element with the text "Login" -->
+    <h2>Login</h2>
+    <!-- create a new div with the class "textbox" to hold the input field to enter a username -->
     <div class="textbox">
-      <i class="fa fa-user-o" aria-hidden="true"></i>
+      <!-- create the textbox for the user to enter their username into -->
       <input id="userInput" type="text" placeholder="Username" name="username" value="">
     </div>
 
+    <!-- create a button with the link to the customise page -->
     <a href = "customise.html">
       <input id="loginBtt" class="button" type="button" name="login" value="Sign In">
     </a>
-
-
   </div>
+
 <script src ="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
 
-<script src ="Javascript/Potato.js"> </script>
+<script src ="Javascript/GameScript.js"> </script>
   </body>
 </html>
