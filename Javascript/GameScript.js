@@ -1,5 +1,5 @@
 
-var socket = io.connect('http://localhost:2000');
+var socket = io.connect('http://10.0.1.17:2000');
 var ctx = document.getElementById("ctx");
 var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
@@ -16,36 +16,67 @@ socket.emit('start',{
 });
 socket.on('newPositions',function(data){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i = 0; i < data.length;i++)
-
+    for(var i = 0; i < data.length;i++){
+      if(i != 0){
+        if(data[i-1].x == data[i].x && data[i-1].y == data[i].y){
+            data[i].x -= 15;
+            data[i].y -= 15;
+        }
+      }
+      if (data[i].x > window.innerWidth -190) {
+          data[i].x = window.innerWidth -190;
+        }
+        if (data[i].x < 40) {
+          data[i].x = 40;
+        }
+        if (data[i].y > window.innerHeight-40) {
+          data[i].y = window.innerHeight-40;
+        }
+        if (data[i].y < 40) {
+          data[i].y = 40;
+        }
+      console.log(data[i].bullets);
       rotateAndPaintImage(ctx,image,data[i].rotation*TO_RADIANS,data[i].x,data[i].y,20,30);
+      
+    }
+    
 });
 
 document.onkeydown = function(event){
-  if(event.keyCode==68)
+  if(event.keyCode==68){
+    rot = 90;
     socket.emit('keyPress',{
       inputId:'right',
       state:true,
       rotation:90
-});
-  else if(event.keyCode==83)
+});}
+  else if(event.keyCode==83){
+  rot = 180;
   socket.emit('keyPress',{
     inputId:'down',
     state:true,
     rotation:180
-});
-  else if(event.keyCode==65)
+});}
+  else if(event.keyCode==65){
+  rot = 270;
   socket.emit('keyPress',{
     inputId:'left',
     state:true,
     rotation:270
-});
-  else if(event.keyCode==87)
+});}
+  else if(event.keyCode==87){
+    rot = 0;
   socket.emit('keyPress',{
     inputId:'up',
     state:true,
     rotation:0
-});
+});}
+else if(event.keyCode==32){
+socket.emit('keyPress',{
+    inputId:'space',
+    state:true,
+    rotation:rot
+});}
 }
 
 document.onkeyup = function(event){
@@ -73,6 +104,12 @@ document.onkeyup = function(event){
     state:false,
     rotation:0
 });
+else if(event.keyCode==32)
+  socket.emit('keyPress',{
+    inputId:'space',
+    state:false,
+    rotation: rot
+});
 }
 function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {
   context.translate( positionX, positionY );
@@ -82,5 +119,5 @@ function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY
   context.translate( -positionX, -positionY );
 }
 
-var playerBullets = [];
+
 
