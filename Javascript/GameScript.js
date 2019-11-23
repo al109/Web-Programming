@@ -48,46 +48,46 @@ socket.on('newPositions',function(data){
                     state:true,
                     rotation:0
                   });
-
+              if(event.keyCode === 32)
+                  socket.emit('keyPress',{
+                      inputId:'attack',
+                      state:true,
+                      rotation:1
+                    });
           }
           document.onkeyup = function(event){
               if(event.keyCode === 68)    //d
                   socket.emit('keyPress',{
                     inputId:'right',
                     state:false,
-                    rotation:90
+                    rotation:1
                   });
               else if(event.keyCode === 83)   //s
                   socket.emit('keyPress',{
                     inputId:'down',
                     state:false,
-                    rotation:180
+                    rotation:1
                   });
               else if(event.keyCode === 65) //a
                   socket.emit('keyPress',{
                     inputId:'left',
                     state:false,
-                    rotation:270
+                    rotation:1
                   });
               else if(event.keyCode === 87) // w
                   socket.emit('keyPress',{
                     inputId:'up',
                     state:false,
-                    rotation:0
+                    rotation:1
                   });
-          }
+              if(event.keyCode === 32)
+                  socket.emit('keyPress',{
+                      inputId:'attack',
+                      state:false,
+                      rotation:1
+                        });
 
-          document.onmousedown = function(event){
-              socket.emit('keyPress',{inputId:'attack',state:true});
-          }
-          document.onmouseup = function(event){
-              socket.emit('keyPress',{inputId:'attack',state:false});
-          }
-          document.onmousemove = function(event){
-              var x = -250 + event.clientX - 8;
-              var y = -250 + event.clientY - 8;
-              var angle = Math.atan2(y,x) / Math.PI * 180;
-              socket.emit('keyPress',{inputId:'mouseAngle',state:angle});
+
 
 }
 function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {

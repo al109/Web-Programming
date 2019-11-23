@@ -65,7 +65,7 @@ var Player = function(id,rotation){
         super_update();
 
         if(self.pressingAttack){
-            self.shootBullet(self.mouseAngle);
+            self.shootBullet(self.rotation);
         }
     }
     self.shootBullet = function(angle){
@@ -97,26 +97,49 @@ Player.list = {};
 Player.onConnect = function(socket){
     var player = Player(socket.id,0);
     socket.on('keyPress',function(data){
+
         if(data.inputId === 'left')
             player.pressingLeft = data.state;
+            if(data.rotation == 1){
+              player.rotation = player.rotation;
+            } else {
             player.rotation = data.rotation;
+}
         if(data.inputId === 'right')
             player.pressingRight = data.state;
+            if(data.rotation == 1){
+              player.rotation = player.rotation;
+            } else {
             player.rotation = data.rotation;
+  }
+
         if(data.inputId === 'up')
             player.pressingUp = data.state;
+            if(data.rotation == 1){
+              player.rotation = player.rotation;
+            } else {
             player.rotation = data.rotation;
+}
+
         if(data.inputId === 'down')
             player.pressingDown = data.state;
+            if(data.rotation == 1){
+              player.rotation = player.rotation;
+            } else {
             player.rotation = data.rotation;
+}
+
         if(data.inputId === 'attack')
             player.pressingAttack = data.state;
-        if(data.inputId === 'mouseAngle')
-            player.mouseAngle = data.state;
+            if(data.rotation == 1){
+              player.rotation = player.rotation;
+            } else {
+            player.rotation = data.rotation;
+          }
     });
 }
 Player.onDisconnect = function(socket){
-    delete Player.list[socket.id];
+    delete Player.list[socket];
 }
 Player.update = function(){
     var pack = [];
@@ -189,7 +212,7 @@ io.sockets.on('connection', function(socket){
   });
     socket.on('disconnect',function(){
         delete SOCKET_LIST[socket.id];
-        Player.onDisconnect(socket);
+        Player.onDisconnect(socket.id);
 });
 });
 
