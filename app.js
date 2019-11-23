@@ -18,7 +18,7 @@ app.use('/',express.static(__dirname + '/'));
 app.use('/Javascript',express.static(__dirname + '/Javascript'));
 app.use('/Style',express.static(__dirname + '/Style'));
 
-serv.listen(2000,'10.0.1.17');
+serv.listen(2000);
 console.log("Server started");
 
 var io = require('socket.io')(serv,{});
