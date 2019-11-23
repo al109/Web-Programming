@@ -52,9 +52,9 @@ var Player = function(id,rotation){
   return self;
 }
 
-var playerBullets = {};
 
-var Bullet = function(angle){
+
+var bullet = function(angle){
   var self = Entity();
   self.id = Math.random();
   self.velocityX = Math.cos(angle/180*Math.PI) * 10;
