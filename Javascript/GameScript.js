@@ -1,8 +1,11 @@
 
-var socket = io.connect('http://localhost:2000');
+var socket = io.connect('http://10.0.1.17:2000');
 var ctx = document.getElementById("ctx");
 var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
+canvas = document.getElementById("ctx")
+canvas.width = window.innerWidth -150 ;
+canvas.height = window.innerHeight -15;
 image = document.getElementById("ship");
 ctx.font = "30px Arial";
 var TO_RADIANS = Math.PI/180;
@@ -13,9 +16,23 @@ socket.emit('start',{
 
 });
 socket.on('newPositions',function(data){
-  ctx.clearRect(0,0,500,500);
-    for(var i = 0; i < data.length;i++)
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i = 0; i < data.length;i++){
+      if (data[i].x > canvas.width -40) {
+      
+      data[i].x = canvas.width - 40;
+      } else if (data[i].x < 40) {
+        data[i].x = 40;
+      }
+
+     if (data[i].y > canvas.height - 40) {
+      data[i].y = canvas.height - 40;
+     } else if (data[i].y < 40) {
+      data[i].y = 40;
+        
+      }
       rotateAndPaintImage(ctx,image,data[i].rotation*TO_RADIANS,data[i].x,data[i].y,20,30);
+    }
 });
 
 document.onkeydown = function(event){

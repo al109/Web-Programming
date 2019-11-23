@@ -37,7 +37,7 @@ var Player = function(id,rotation){
     pressingUp:false,
     pressingDown:false,
     rotation:rotation,
-    maxSpd:10,
+    maxSpd:5,
   }
   self.updatePosition = function(){
     if(self.pressingRight)
@@ -54,39 +54,6 @@ var Player = function(id,rotation){
 
 
 
-var bullet = function(angle){
-  var self = Entity();
-  self.id = Math.random();
-  self.velocityX = Math.cos(angle/180*Math.PI) * 10;
-  self.velocityY = Math.sin(angle/180*Math.PI) * 10;
-  self.timer = 0;
-  self.toRemove = false;
-  var super_update = self.update;
-  self.update = function(){
-    if(self.timer++ > 100){
-      self.toRemove = true;
-    }
-    super_update();
-  }
-  bulletComponent.list[self.id] = self;
-  return self;
-  
-  
-}
-bullet.list = {};
-
-bullet.update = function(){
-  var pack = [];
-  for(var i in bullet.list){
-    var bullet = bullet.list[i]
-    bullet.update();
-    pack.push({
-      x: bullet.x,
-      y:bullet.y
-    })
-  }
-}
-
 io.sockets.on('connection',function(socket){
   console.log('made socket connection',socket.id)
 
@@ -101,7 +68,6 @@ io.sockets.on('connection',function(socket){
     socket.on('disconnect',function(){
       delete SOCKET_LIST[socket.id];
       delete PLAYER_LIST[socket.id];
-      delete playerBullets[socket.id];
     });
 
     socket.on('keyPress',function(data){
@@ -137,12 +103,12 @@ io.sockets.on('connection',function(socket){
   });
   });
 });
+});
 
 setInterval(function(){
   var pack = [];
   for(var i in PLAYER_LIST){
     var player = PLAYER_LIST[i];
-    var bullets = playerBullets[i];
     player.updatePosition();
     pack.push({
       x:player.x,
@@ -150,9 +116,9 @@ setInterval(function(){
       rotation:player.rotation,
      });
     
-  }
+    }
   for(var i in SOCKET_LIST){
     var socket = SOCKET_LIST[i];
     socket.emit('newPositions',pack);
   }
-},1000/25);})
+},1000/25);
