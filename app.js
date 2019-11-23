@@ -1,9 +1,7 @@
 var express = require('express')
 var app = express();
 var serv = require('http').Server(app);
-
 let mysql = require('mysql');
-
 let con = mysql.createConnection({
     host: 'sql2.freesqldatabase.com',
     user: 'sql2312807',
@@ -20,14 +18,15 @@ app.use('/',express.static(__dirname + '/'));
 app.use('/Javascript',express.static(__dirname + '/Javascript'));
 app.use('/Style',express.static(__dirname + '/Style'));
 
-serv.listen(2000);
+serv.listen(2000,'10.0.1.17');
 console.log("Server started");
 
 var io = require('socket.io')(serv,{});
 var SOCKET_LIST = {};
 var PLAYER_LIST = {};
 
-var Player = function(id){
+
+var Player = function(id,rotation){
   var self = {
     x:250,
     y:250,
@@ -37,12 +36,12 @@ var Player = function(id){
     pressingLeft:false,
     pressingUp:false,
     pressingDown:false,
-    rotation:0,
-    maxSpd:10,
+    rotation:rotation,
+    maxSpd:5,
   }
   self.updatePosition = function(){
     if(self.pressingRight)
-      self.x += self.maxSpd;
+        self.x += self.maxSpd;
     if(self.pressingLeft)
       self.x -= self.maxSpd;
     if(self.pressingUp)
@@ -53,14 +52,15 @@ var Player = function(id){
   return self;
 }
 
+
+
 io.sockets.on('connection',function(socket){
   console.log('made socket connection',socket.id)
-  var player = Player(socket.id);
-  SOCKET_LIST[socket.id] = socket;
-  PLAYER_LIST[socket.id] = player;
 
   socket.on('start',function(data){
-
+    var player = Player(socket.id,0);
+    SOCKET_LIST[socket.id] = socket;
+    PLAYER_LIST[socket.id] = player;
     console.log(data.name);
     console.log(socket.id);
 
@@ -83,23 +83,26 @@ io.sockets.on('connection',function(socket){
       if(data.inputId === 'down')
         player.pressingDown = data.state;
         player.rotation = data.rotation;
-    });
+      if(data.inputId === 'space'){
+        playerBullets[socket.id] += new Bullet(player.rotation, player.x,player.y)
+      }
 
   });
 
 
 
   socket.on('username',function(data){
-    con.connect(function(err) {
+    con.connect(function() {
     var sql = 'INSERT INTO Users (username) VALUES ?';
     var values = [[data.name]];
     console.log(data.name);
-    con.query(sql,[values],function(err,result){
+    con.query(sql,[values],function(err){
       if (err) throw err;
       console.log("IT WORKED REEEEE")
     });
   });
   });
+});
 });
 
 setInterval(function(){
@@ -110,12 +113,12 @@ setInterval(function(){
     pack.push({
       x:player.x,
       y:player.y,
-      rotation:player.rotation
-    });
-  }
+      rotation:player.rotation,
+     });
+    
+    }
   for(var i in SOCKET_LIST){
     var socket = SOCKET_LIST[i];
     socket.emit('newPositions',pack);
   }
-
 },1000/25);
