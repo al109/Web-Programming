@@ -7,6 +7,7 @@ canvas = document.getElementById("ctx")
 canvas.width = window.innerWidth - 200 ;
 canvas.height = window.innerHeight -15;
 var ScoreBoard = [];
+var Usernames = [];
 var image;
 ctx.font = "30px Arial";
 ctx.fillStyle = "red";
@@ -26,9 +27,11 @@ socket.on('newPositions',function(data){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
   for(var i = 0; i < data.player.length;i++){
-      ScoreBoard += document.getElementById("row1");
+      ScoreBoard[i] = document.getElementById("score" + (1+i));
+      Usernames[i] = document.getElementById("user" + (1+i));
   }
     for(var i = 0; i < data.player.length;i++){
+      ScoreBoard[i].innerHTML  = data.player[i].score;
       image = document.getElementById(data.player[i].ship);
       rotateAndPaintImage(ctx,image,data.player[i].rotation*TO_RADIANS,data.player[i].x,data.player[i].y,20,30);
     }
