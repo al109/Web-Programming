@@ -65,7 +65,7 @@ var Player = function(id,rotation){
         super_update();
 
         if(self.pressingAttack){
-            self.shootBullet(self.rotation);
+            self.shootBullet(self.rotation-90);
         }
     }
     self.shootBullet = function(angle){
@@ -160,8 +160,8 @@ Player.update = function(){
 var Bullet = function(parent,angle){
     var self = Entity();
     self.id = Math.random();
-    self.spdX = Math.cos(angle/180*Math.PI) * 10;
-    self.spdY = Math.sin(angle/180*Math.PI) * 10;
+    self.spdX = Math.cos(angle/180*Math.PI) * 20;
+    self.spdY = Math.sin(angle/180*Math.PI) * 20;
     self.parent = parent;
     self.timer = 0;
     self.toRemove = false;
