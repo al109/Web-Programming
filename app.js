@@ -99,7 +99,7 @@ var Player = function(id,rotation){
 
         if(self.pressingDown){
 
-            if(self.y < self.limit  -){
+            if(self.y < self.limit  -40){
                 self.spdY = self.maxSpd;
                 }
             else{
