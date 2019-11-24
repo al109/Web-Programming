@@ -46,7 +46,7 @@ var Entity = function(){
     return self;
 }
 
-var Player = function(id,rotation){
+var Player = function(id,rotation,ship){
     var self = Entity();
     self.id = id;
     self.number = "" + Math.floor(10 * Math.random());
@@ -61,6 +61,7 @@ var Player = function(id,rotation){
     self.mouseAngle = 0;
     self.maxSpd = 10;
     self.rotation = rotation;
+    self.ship = ship;
 
     var super_update = self.update;
     self.update = function(){
@@ -126,7 +127,7 @@ var Player = function(id,rotation){
 }
 Player.list = {};
 Player.onConnect = function(socket){
-    var player = Player(socket.id,0);
+    var player = Player(socket.id,0,SHIP_ID[SHIP_ID.length-1]);
     socket.on('keyPress',function(data){
 
         if(data.inputId === 'left')
@@ -193,7 +194,8 @@ Player.update = function(){
             y:player.y,
             number:player.number,
             rotation:player.rotation,
-            score:player.score
+            score:player.score,
+            ship:player.ship
         });
     }
     return pack;

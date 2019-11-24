@@ -1,5 +1,5 @@
 var limit = 0;
-var socket = io.connect('http://10.0.1.17:2000');
+var socket = io.connect('http://localhost:2000');
 var ctx = document.getElementById("ctx");
 var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
@@ -23,12 +23,13 @@ socket.on('ship',function(data){
 });
 
 socket.on('newPositions',function(data){
+
   ctx.clearRect(0,0,canvas.width,canvas.height);
   for(var i = 0; i < data.player.length;i++){
       ScoreBoard += document.getElementById("row1");
   }
     for(var i = 0; i < data.player.length;i++){
-      ScoreBoard[i].innerHTML = data.player[i].score;
+      image = document.getElementById(data.player[i].ship);
       rotateAndPaintImage(ctx,image,data.player[i].rotation*TO_RADIANS,data.player[i].x,data.player[i].y,20,30);
     }
     for(var i = 0 ; i < data.bullet.length; i++)
