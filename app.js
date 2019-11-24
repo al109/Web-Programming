@@ -255,7 +255,8 @@ Bullet.update = function(){
 
 var USERNAME_LIST = [];
 var SHIP_ID = [];
-
+var PLACE = [];
+var i = 0;
 
 io.sockets.on('connection', function(socket){
     socket.on('username',function(data){
@@ -270,7 +271,11 @@ io.sockets.on('connection', function(socket){
     socket.id = Math.random();
     SOCKET_LIST[socket.id] = socket;
     Player.onConnect(socket);
-
+    PLACE[socket.id] = i;
+    i++;
+    socket.emit('place',{
+      place:PLACE[socket.id]
+    });
     var sql = "INSERT INTO Users (username,shiptype) VALUES ?"
     var values = [
       [USERNAME_LIST[USERNAME_LIST.length-1],SHIP_ID[SHIP_ID.length-1]]
@@ -288,6 +293,7 @@ io.sockets.on('connection', function(socket){
     socket.on('disconnect',function(){
         delete SOCKET_LIST[socket.id];
         Player.onDisconnect(socket.id);
+
 });
 });
 
