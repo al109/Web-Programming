@@ -19,18 +19,6 @@ socket.emit('start',{
 socket.on('newPositions',function(data){
   ctx.clearRect(0,0,canvas.width,canvas.height);
     for(var i = 0; i < data.player.length;i++){
-      if (data.player[i].x >= window.innerWidth -190) {
-      
-      data.player[i].x = window.innerWidth -190;
-      } else if (data.player[i].x <= 5) {
-        data.player[i].x = 5;
-      }
-
-    if (data.player[i].y > window.innerHeight - 40) {
-      data.player[i].y = window.innerHeight - 40;
-    } else if (data.player[i].y <= 5) {
-      data.player[i].y = 5;
-    }
       rotateAndPaintImage(ctx,image,data.player[i].rotation*TO_RADIANS,data.player[i].x,data.player[i].y,20,30);
     }
     for(var i = 0 ; i < data.bullet.length; i++)
@@ -43,31 +31,36 @@ socket.on('newPositions',function(data){
                   socket.emit('keyPress',{
                     inputId:'right',
                     state:true,
-                    rotation:90
+                    rotation:90,
+                    limit: window.innerWidth -190
                   });
               else if(event.keyCode === 83)   //s
                   socket.emit('keyPress',{
                     inputId:'down',
                     state:true,
-                    rotation: 180
+                    rotation: 180,
+                    limit: window.innerHeight
                   });
               else if(event.keyCode === 65) //a
                   socket.emit('keyPress',{
                     inputId:'left',
                     state:true,
-                    rotation:270
+                    rotation:270,
+                    limit: 5
                   });
               else if(event.keyCode === 87) // w
                   socket.emit('keyPress',{
                     inputId:'up',
                     state:true,
-                    rotation:0
+                    rotation:0,
+                    limit: 0
                   });
               if(event.keyCode === 32)
                   socket.emit('keyPress',{
                       inputId:'attack',
                       state:true,
-                      rotation:1
+                      rotation:1,
+                      limit: 0
                     });
           }
           document.onkeyup = function(event){
@@ -75,31 +68,36 @@ socket.on('newPositions',function(data){
                   socket.emit('keyPress',{
                     inputId:'right',
                     state:false,
-                    rotation:1
+                    rotation:1,
+                    limit: 1
                   });
               else if(event.keyCode === 83)   //s
                   socket.emit('keyPress',{
                     inputId:'down',
                     state:false,
-                    rotation:1
+                    rotation:1,
+                    limit: 1
                   });
               else if(event.keyCode === 65) //a
                   socket.emit('keyPress',{
                     inputId:'left',
                     state:false,
-                    rotation:1
+                    rotation:1,
+                    limit: 1
                   });
               else if(event.keyCode === 87) // w
                   socket.emit('keyPress',{
                     inputId:'up',
                     state:false,
-                    rotation:1
+                    rotation:1,
+                    limit: 1
                   });
               if(event.keyCode === 32)
                   socket.emit('keyPress',{
                       inputId:'attack',
                       state:false,
-                      rotation:1
+                      rotation:1,
+                      limit: 1
                         });
 
 

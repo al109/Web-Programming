@@ -26,8 +26,8 @@ var SOCKET_LIST = {};
 
 var Entity = function(){
     var self = {
-        x:250,
-        y:250,
+        x:150,
+        y:150,
         spdX:0,
         spdY:0,
         id:"",
@@ -36,6 +36,7 @@ var Entity = function(){
         self.updatePosition();
     }
     self.updatePosition = function(){
+        
         self.x += self.spdX;
         self.y += self.spdY;
     }
@@ -56,6 +57,7 @@ var Player = function(id,rotation){
     self.pressingSpace = false;
     self.pressingAttack = false;
     self.score = 0;
+    self.limit = 0;
     self.mouseAngle = 0;
     self.maxSpd = 10;
     self.rotation = rotation;
@@ -77,19 +79,46 @@ var Player = function(id,rotation){
 
 
     self.updateSpd = function(){
-        if(self.pressingRight)
-            self.spdX = self.maxSpd;
+        if(self.pressingRight){
+            if(self.x < self.limit){
+                self.spdX = self.maxSpd;
+            }
+            else{
+                self.spdX = 0;
+            }
+        }
         else if(self.pressingLeft)
+        if(self.x > self.limit){
             self.spdX = -self.maxSpd;
+        }
+        else{
+            self.spdX = 0;
+        }
         else
             self.spdX = 0;
 
         if(self.pressingUp)
-            self.spdY = -self.maxSpd;
-        else if(self.pressingDown)
-            self.spdY = self.maxSpd;
-        else
+            if(self.y > self.limit){
+                self.spdY = -self.maxSpd;
+             }
+            else{
+             self.spdY = 0;
+            }
+           
+        else if(self.pressingDown){
+            if(self.limit == 1){
+
+            }
+            if(self.y < self.limit){
+                self.spdY = self.maxSpd;
+            }
+            else{
+             self.spdY = 0;
+            }
+        }
+        else{
             self.spdY = 0;
+        }
     }
     Player.list[id] = self;
     return self;
@@ -101,6 +130,7 @@ Player.onConnect = function(socket){
 
         if(data.inputId === 'left')
             player.pressingLeft = data.state;
+            player.limit = data.limit;
             if(data.rotation == 1){
               player.rotation = player.rotation;
             } else {
@@ -108,26 +138,33 @@ Player.onConnect = function(socket){
 }
         if(data.inputId === 'right')
             player.pressingRight = data.state;
+            player.limit = data.limit;
             if(data.rotation == 1){
               player.rotation = player.rotation;
             } else {
             player.rotation = data.rotation;
+            a 
   }
 
         if(data.inputId === 'up')
             player.pressingUp = data.state;
+            player.limit = data.limit;
             if(data.rotation == 1){
               player.rotation = player.rotation;
             } else {
             player.rotation = data.rotation;
+            
+
 }
 
         if(data.inputId === 'down')
             player.pressingDown = data.state;
+            player.limit = data.limit;
             if(data.rotation == 1){
               player.rotation = player.rotation;
             } else {
             player.rotation = data.rotation;
+            
 }
 
         if(data.inputId === 'attack')
@@ -136,6 +173,11 @@ Player.onConnect = function(socket){
               player.rotation = player.rotation;
             } else {
             player.rotation = data.rotation;
+            if(data.limit == 0){
+                player.limit = player.limit;
+              } else {
+              player.limit = data.limit;
+              }
           }
     });
 }
@@ -158,12 +200,12 @@ Player.update = function(){
     return pack;
 }
 
-
+//This is the bullet.
 var Bullet = function(parent,angle){
     var self = Entity();
     self.id = Math.random();
-    self.spdX = Math.cos(angle/180*Math.PI) * 20;
-    self.spdY = Math.sin(angle/180*Math.PI) * 20;
+    self.spdX = Math.cos(angle/180*Math.PI) * 20;//This calculates the velocity of the bullets x axis.
+    self.spdY = Math.sin(angle/180*Math.PI) * 20;//This calculates the velocity of the bullets y axis.
     self.parent = parent;
     self.timer = 0;
     self.toRemove = false;
@@ -175,9 +217,12 @@ var Bullet = function(parent,angle){
 
         for(var i in Player.list){
             var p = Player.list[i];
+            //If a player gets hit, thats not the player that shot the bullet
             if(self.getDistance(p) < 25 && self.parent !== p.id){
+                //These respawn the player after its been hit by a ship
                 p.x = 150;
                 p.y = 150;
+                //Adds 1 on to the score of the player that shot the bullet
                 Player.list[self.parent].score ++;
                 console.log(Player.list[self.parent].score + " " + self.parent);
                 //handle collision. ex: hp--;
