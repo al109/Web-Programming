@@ -18,7 +18,7 @@ app.use('/',express.static(__dirname + '/'));
 app.use('/Javascript',express.static(__dirname + '/Javascript'));
 app.use('/Style',express.static(__dirname + '/Style'));
 
-serv.listen(2000);
+serv.listen(2000,'10.0.1.17');
 console.log("Server started");
 
 var io = require('socket.io')(serv,{});
@@ -55,6 +55,7 @@ var Player = function(id,rotation){
     self.pressingDown = false;
     self.pressingSpace = false;
     self.pressingAttack = false;
+    self.score = 0;
     self.mouseAngle = 0;
     self.maxSpd = 10;
     self.rotation = rotation;
@@ -150,7 +151,8 @@ Player.update = function(){
             x:player.x,
             y:player.y,
             number:player.number,
-            rotation:player.rotation
+            rotation:player.rotation,
+            score:player.score
         });
     }
     return pack;
@@ -173,10 +175,15 @@ var Bullet = function(parent,angle){
 
         for(var i in Player.list){
             var p = Player.list[i];
-            if(self.getDistance(p) < 32 && self.parent !== p.id){
+            if(self.getDistance(p) < 25 && self.parent !== p.id){
+                p.x = 150;
+                p.y = 150;
+                Player.list[self.parent].score ++;
+                console.log(Player.list[self.parent].score + " " + self.parent);
                 //handle collision. ex: hp--;
                 self.toRemove = true;
             }
+            
         }
     }
     Bullet.list[self.id] = self;
