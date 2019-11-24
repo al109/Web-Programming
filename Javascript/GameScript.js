@@ -4,8 +4,9 @@ var ctx = document.getElementById("ctx");
 var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
 canvas = document.getElementById("ctx")
-canvas.width = window.innerWidth -150 ;
+canvas.width = window.innerWidth - 200 ;
 canvas.height = window.innerHeight -15;
+var ScoreBoard = [];
 var image;
 ctx.font = "30px Arial";
 ctx.fillStyle = "red";
@@ -23,7 +24,11 @@ socket.on('ship',function(data){
 
 socket.on('newPositions',function(data){
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(var i = 0; i < data.player.length;i++){
+      ScoreBoard += document.getElementById("row1");
+  }
     for(var i = 0; i < data.player.length;i++){
+      ScoreBoard[i].innerHTML = data.player[i].score;
       rotateAndPaintImage(ctx,image,data.player[i].rotation*TO_RADIANS,data.player[i].x,data.player[i].y,20,30);
     }
     for(var i = 0 ; i < data.bullet.length; i++)

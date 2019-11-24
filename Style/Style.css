@@ -216,3 +216,12 @@
   /* set the font colour to black */
   color: black;
 }
+
+#Scoreboard {
+  padding: 0;
+  background-color: aqua;
+  top:25%;
+  right:0;
+  position: absolute;
+  width: 180px;
+}
