@@ -1,5 +1,5 @@
-
-var socket = io.connect('http://localhost:2000');
+var limit = 0;
+var socket = io.connect('http://10.0.1.17:2000');
 var ctx = document.getElementById("ctx");
 var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
@@ -32,41 +32,47 @@ socket.on('newPositions',function(data){
           });
 
           document.onkeydown = function(event){
-              if(event.keyCode === 68)    //d
+              if(event.keyCode === 68){
+                  limit =   window.innerWidth -190; //d
                   socket.emit('keyPress',{
                     inputId:'right',
                     state:true,
                     rotation:90,
-                    limit: window.innerWidth -190
-                  });
-              else if(event.keyCode === 83)   //s
+                    limit: limit
+                  });}
+              else if(event.keyCode === 83){
+                  limit = window.innerHeight; //s
                   socket.emit('keyPress',{
                     inputId:'down',
                     state:true,
                     rotation: 180,
-                    limit: window.innerHeight
-                  });
-              else if(event.keyCode === 65) //a
+                    limit: window.innerHeight -40
+                  });}
+              else if(event.keyCode === 65){
+                limit = 5;//a
                   socket.emit('keyPress',{
                     inputId:'left',
                     state:true,
                     rotation:270,
-                    limit: 5
-                  });
-              else if(event.keyCode === 87) // w
+                    limit: limit
+                  });}
+              else if(event.keyCode === 87){
+                  limit = 0; // w
                   socket.emit('keyPress',{
                     inputId:'up',
                     state:true,
                     rotation:0,
-                    limit: 0
-                  });
-              if(event.keyCode === 32)
+                    limit: limit
+                  });}
+              if(event.keyCode === 32){
+                  console.log(limit);
                   socket.emit('keyPress',{
                       inputId:'attack',
                       state:true,
                       rotation:1,
-                      limit: 0
+                      limit: limit
                     });
+              }
           }
           document.onkeyup = function(event){
               if(event.keyCode === 68)    //d
@@ -74,38 +80,38 @@ socket.on('newPositions',function(data){
                     inputId:'right',
                     state:false,
                     rotation:1,
-                    limit: 1
+                    limit: limit
                   });
               else if(event.keyCode === 83)   //s
                   socket.emit('keyPress',{
                     inputId:'down',
                     state:false,
                     rotation:1,
-                    limit: 1
+                    limit: limit
                   });
               else if(event.keyCode === 65) //a
                   socket.emit('keyPress',{
                     inputId:'left',
                     state:false,
                     rotation:1,
-                    limit: 1
+                    limit: limit
                   });
               else if(event.keyCode === 87) // w
                   socket.emit('keyPress',{
                     inputId:'up',
                     state:false,
                     rotation:1,
-                    limit: 1
+                    limit: limit
                   });
-              if(event.keyCode === 32)
+              if(event.keyCode === 32){
                   socket.emit('keyPress',{
                       inputId:'attack',
                       state:false,
                       rotation:1,
-                      limit: 1
+                      limit: limit
                         });
 
-
+                      }
 
 }
 function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {

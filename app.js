@@ -97,7 +97,16 @@ var Player = function(id,rotation){
         else
             self.spdX = 0;
 
-        if(self.pressingUp)
+        if(self.pressingDown){
+
+            if(self.y < self.limit  -40){
+                self.spdY = self.maxSpd;
+                }
+            else{
+                self.spdY = 0;
+            }
+            }
+        else if(self.pressingUp)
             if(self.y > self.limit){
                 self.spdY = -self.maxSpd;
              }
@@ -105,19 +114,11 @@ var Player = function(id,rotation){
              self.spdY = 0;
             }
 
-        else if(self.pressingDown){
-            if(self.limit == 1){
 
-            }
-            if(self.y < self.limit){
-                self.spdY = self.maxSpd;
-            }
-            else{
-             self.spdY = 0;
-            }
-        }
         else{
+
             self.spdY = 0;
+
         }
     }
     Player.list[id] = self;
@@ -169,15 +170,13 @@ Player.onConnect = function(socket){
 
         if(data.inputId === 'attack')
             player.pressingAttack = data.state;
+            console.log(data.limit);
+            player.limit = data.limit;
             if(data.rotation == 1){
               player.rotation = player.rotation;
             } else {
             player.rotation = data.rotation;
-            if(data.limit == 0){
-                player.limit = player.limit;
-              } else {
-              player.limit = data.limit;
-              }
+
           }
     });
 }
