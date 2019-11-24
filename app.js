@@ -18,7 +18,7 @@ app.use('/',express.static(__dirname + '/'));
 app.use('/Javascript',express.static(__dirname + '/Javascript'));
 app.use('/Style',express.static(__dirname + '/Style'));
 
-serv.listen(2000,'10.0.1.17');
+serv.listen(2000);
 console.log("Server started");
 
 var io = require('socket.io')(serv,{});
@@ -36,7 +36,7 @@ var Entity = function(){
         self.updatePosition();
     }
     self.updatePosition = function(){
-        
+
         self.x += self.spdX;
         self.y += self.spdY;
     }
@@ -104,7 +104,7 @@ var Player = function(id,rotation){
             else{
              self.spdY = 0;
             }
-           
+
         else if(self.pressingDown){
             if(self.limit == 1){
 
@@ -143,7 +143,7 @@ Player.onConnect = function(socket){
               player.rotation = player.rotation;
             } else {
             player.rotation = data.rotation;
-            a 
+
   }
 
         if(data.inputId === 'up')
@@ -153,7 +153,7 @@ Player.onConnect = function(socket){
               player.rotation = player.rotation;
             } else {
             player.rotation = data.rotation;
-            
+
 
 }
 
@@ -164,7 +164,7 @@ Player.onConnect = function(socket){
               player.rotation = player.rotation;
             } else {
             player.rotation = data.rotation;
-            
+
 }
 
         if(data.inputId === 'attack')
@@ -228,7 +228,7 @@ var Bullet = function(parent,angle){
                 //handle collision. ex: hp--;
                 self.toRemove = true;
             }
-            
+
         }
     }
     Bullet.list[self.id] = self;
@@ -252,16 +252,38 @@ Bullet.update = function(){
     return pack;
 }
 
+var USERNAME_LIST = [];
+var SHIP_ID = [];
 
 
-var io = require('socket.io')(serv,{});
 io.sockets.on('connection', function(socket){
+    socket.on('username',function(data){
+      USERNAME_LIST.push(data.name);
+    });
+
+    socket.on('shipID',function(data){
+      SHIP_ID.push(data.id);
+    });
+
     socket.on('start',function(data){
     socket.id = Math.random();
     SOCKET_LIST[socket.id] = socket;
-
     Player.onConnect(socket);
+
+    var sql = "INSERT INTO Users (username,shiptype) VALUES ?"
+    var values = [
+      [USERNAME_LIST[USERNAME_LIST.length-1],SHIP_ID[SHIP_ID.length-1]]
+    ];
+    con.query(sql,[values],function(err,result){
+      if (err) throw err;
+      console.log("Number of records inserted" + result.affectedRows);
+    });
+    socket.emit('ship',{
+
+      shipID:SHIP_ID[SHIP_ID.length-1]
+    });
   });
+
     socket.on('disconnect',function(){
         delete SOCKET_LIST[socket.id];
         Player.onDisconnect(socket.id);

@@ -7,6 +7,7 @@
     <title>Choose Your Ship</title>
     <!-- link to the external css stylesheet -->
     <link rel="stylesheet" href="Style/Style.css">
+    <script src="Javascript/GameScript.js"></script>
   </head>
 
 <!-- set the body id to "loginBody" -->
@@ -21,49 +22,49 @@
       <!-- create a table row that will hold 3 ship images -->
       <tr>
         <td>
-          <img src="Style/Images/ship.png" class="customShip">
+          <img id ="ship1" src="Style/Images/ship.png" class="customShip">
         </td>
         <td>
-          <img src="Style/Images/ship2.png" class="customShip">
+          <img id="ship2" src="Style/Images/ship2.png" class="customShip">
         </td>
         <td>
-          <img src="Style/Images/ship3.png" class="customShip">
+          <img id="ship3" src="Style/Images/ship3.png" class="customShip">
         </td>
       </tr>
       <!-- create a table row that will hold 3 buttons to select one of the above ships -->
       <tr>
         <td>
-          <input class="button" type="button" name="shipNum" value="Ship 1">
+          <input id="btn1" class="button" type="button" name="shipNum" value="Ship 1">
         </td>
         <td>
-          <input class="button" type="button" name="shipNum" value="Ship 2">
+          <input id="btn2" class="button" type="button" name="shipNum" value="Ship 2">
         </td>
         <td>
-          <input class="button" type="button" name="shipNum" value="Ship 3">
+          <input id="btn3" class="button" type="button" name="shipNum" value="Ship 3">
         </td>
       </tr>
       <!-- create a new table row to hold the last 3 ship images -->
       <tr>
         <td>
-          <img src="Style/Images/ship4.png" class="customShip">
+          <img id="ship4" src="Style/Images/ship4.png" class="customShip">
         </td>
         <td>
-          <img src="Style/Images/ship5.png" class="customShip">
+          <img id="ship5" src="Style/Images/ship5.png" class="customShip">
         </td>
         <td>
-          <img src="Style/Images/ship6.png" class="customShip">
+          <img id="ship6" src="Style/Images/ship6.png" class="customShip">
         </td>
       </tr>
       <!-- create a final table row that will hold the 3 buttons to select the ships in the the row above -->
       <tr>
         <td>
-          <input class="button" type="button" name="shipNum" value="Ship 4">
+          <input id="btn4" class="button" type="button" name="shipNum" value="Ship 4">
         </td>
         <td>
-          <input class="button" type="button" name="shipNum" value="Ship 5">
+          <input id="btn5" class="button" type="button" name="shipNum" value="Ship 5">
         </td>
         <td>
-          <input class="button" type="button" name="shipNum" value="Ship 6">
+          <input id="btn6" class="button" type="button" name="shipNum" value="Ship 6">
         </td>
       </tr>
     </table>
@@ -73,5 +74,8 @@
       <input class="button" type="submit" name="submit" value="OK">
     </a>
   </div>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
+
+  <script src="Javascript/Ship.js"></script>
 </body>
 </html>

@@ -1,12 +1,12 @@
 
-var socket = io.connect('http://10.0.1.17:2000');
+var socket = io.connect('http://localhost:2000');
 var ctx = document.getElementById("ctx");
 var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
 canvas = document.getElementById("ctx")
 canvas.width = window.innerWidth -150 ;
 canvas.height = window.innerHeight -15;
-image = document.getElementById("ship");
+var image;
 ctx.font = "30px Arial";
 ctx.fillStyle = "red";
 var TO_RADIANS = Math.PI/180;
@@ -16,13 +16,18 @@ socket.emit('start',{
   name: "Yooo, it started lads"
 
 });
+socket.on('ship',function(data){
+  image = document.getElementById(data.shipID);
+  console.log(data.shipID);
+});
+
 socket.on('newPositions',function(data){
   ctx.clearRect(0,0,canvas.width,canvas.height);
     for(var i = 0; i < data.player.length;i++){
       rotateAndPaintImage(ctx,image,data.player[i].rotation*TO_RADIANS,data.player[i].x,data.player[i].y,20,30);
     }
     for(var i = 0 ; i < data.bullet.length; i++)
-     
+
       ctx.fillRect(data.bullet[i].x-5,data.bullet[i].y-5,10,10);
           });
 
