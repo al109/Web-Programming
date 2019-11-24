@@ -81,7 +81,7 @@ var Player = function(id,rotation,ship){
 
     self.updateSpd = function(){
         if(self.pressingRight){
-            if(self.x < self.limit){
+            if(self.x < self.limit -50){
                 self.spdX = self.maxSpd;
             }
             else{
@@ -287,6 +287,9 @@ io.sockets.on('connection', function(socket){
     socket.emit('ship',{
 
       shipID:SHIP_ID[SHIP_ID.length-1]
+    });
+    socket.emit('usernames',{
+        usernames: USERNAME_LIST
     });
   });
 
