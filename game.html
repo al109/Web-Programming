@@ -2,6 +2,7 @@
   <head>
     <!-- set this webpage to use the character set UTF-8 -->
     <meta charset = "utf-8">
+    <meta http-equiv="refresh" content="url=index.html"/>
     <!-- link to external css stylesheet -->
     <link rel="stylesheet" type="text/css" href="Style/Style.css">
     <!-- link to the javascript file -->
@@ -12,7 +13,7 @@
     <img src="Style/Images/ship.png" id="ship1" width="30" height="30" style="display: none;">
     <img src="Style/Images/ship2.png" id="ship2" width="30" height="30" style="display: none;">
     <img src="Style/Images/ship3.png" id="ship3" width="30" height="30" style="display: none;">
-    <img src="Style/Images/shi4p.png" id="ship4" width="30" height="30" style="display: none;">
+    <img src="Style/Images/ship4.png" id="ship4" width="30" height="30" style="display: none;">
     <img src="Style/Images/ship5.png" id="ship5" width="30" height="30" style="display: none;">
     <img src="Style/Images/ship6.png" id="ship6" width="30" height="30" style="display: none;">
   </head>
@@ -50,7 +51,22 @@
 
     <canvas id="ctx" width = "1000" height= "790" style="border:1px solid #000000;"></canvas>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
-    <script src="Javascript/GameScript.js"> </script>
+    <script type="text/javascript">
+      var a,b;
+      window.onbeforeunload = function (e) {  
+    if (b) return;
+    a = setTimeout(function () {
+        b = true;
+        window.location.href = "index.html";
+    }, 500);
+    return "Now you will be redirected to new page if choosing to stay there...";
+}
+      window.onunload = function () {
+      clearTimeout(a);
+}
+  </script>
+  
+    <script src="Javascript/GameScript.js"></script>
 
   </body>
 </html>
