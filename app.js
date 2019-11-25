@@ -122,6 +122,7 @@ var Player = function(id,rotation,ship,username){
 
         }
     }
+    
     Player.list[id] = self;
     return self;
 }
@@ -283,8 +284,9 @@ io.sockets.on('connection', function(socket){
     ];
     con.query(sql,[values],function(err,result){
       if (err) throw err;
-      console.log("Number of records inserted" + result.affectedRows);
+      console.log("Number of records inserted: " + result.affectedRows);
     });
+
     socket.emit('ship',{
 
       shipID:SHIP_ID[SHIP_ID.length-1]
@@ -293,6 +295,18 @@ io.sockets.on('connection', function(socket){
 
     socket.on('disconnect',function(){
         delete SOCKET_LIST[socket.id];
+        var place = PLACE[socket.id];
+        var sql = "DELETE FROM Users WHERE username = ?"
+        var values = [
+          [[USERNAME_LIST[place]]]
+        ];
+        con.query(sql,[values],function(err,result){
+          if (err) throw err;
+          console.log("Number of records deleted: " + result.affectedRows);
+        });
+        delete USERNAME_LIST[place];
+        delete SHIP_ID[place];
+        delete PLACE[socket.id];
         Player.onDisconnect(socket.id);
 
 });
