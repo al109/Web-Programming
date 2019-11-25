@@ -78,7 +78,7 @@ var Player = function(id,rotation,ship,username){
         b.y = self.y;
     }
 
-
+    //
     self.updateSpd = function(){
         if(self.pressingRight){
             if(self.x < self.limit){

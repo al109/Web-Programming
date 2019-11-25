@@ -32,7 +32,9 @@ socket.on('ship',function(data){
 socket.on('newPositions',function(data){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  
   for(var i = 0; i < data.player.length;i++){
+    
       ScoreBoard[i] = document.getElementById("score" + (1+i));
       Usernames[i] = document.getElementById("user" + (1+i));
   }
