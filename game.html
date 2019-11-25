@@ -40,8 +40,7 @@
         <tr id = "row9"><td id = "user9"></td><td id = "score9"></td></tr>
         <tr id = "row10"><td id = "user10"></td><td id = "score10"></tr>
       </table>
-      <p>My score is:</p>
-      <p id="Player_score">"score"</p>
+
     </div>
     <!-- create a span which when clicked calls the javascript function openNav() -->
     <span onclick="openNav()">
@@ -53,7 +52,7 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"> </script>
     <script type="text/javascript">
       var a,b;
-      window.onbeforeunload = function (e) {  
+      window.onbeforeunload = function (e) {
     if (b) return;
     a = setTimeout(function () {
         b = true;
@@ -65,7 +64,7 @@
       clearTimeout(a);
 }
   </script>
-  
+
     <script src="Javascript/GameScript.js"></script>
 
   </body>

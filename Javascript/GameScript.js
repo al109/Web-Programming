@@ -12,12 +12,7 @@ var image;
 ctx.font = "30px Arial";
 ctx.fillStyle = "red";
 var TO_RADIANS = Math.PI/180;
-var playerScore = document.getElementById('Player_score');
-var place = 0;
-var username = "";
-socket.on('place',function(data){
-  place = data.place
-});
+
 
 socket.emit('start',{
   name: "Yooo, it started lads"
@@ -32,9 +27,9 @@ socket.on('ship',function(data){
 socket.on('newPositions',function(data){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  
+
   for(var i = 0; i < data.player.length;i++){
-    
+
       ScoreBoard[i] = document.getElementById("score" + (1+i));
       Usernames[i] = document.getElementById("user" + (1+i));
   }
@@ -42,7 +37,6 @@ socket.on('newPositions',function(data){
       ScoreBoard[i].innerHTML  = data.player[i].score;
       Usernames[i].innerHTML = data.player[i].username;
       image = document.getElementById(data.player[i].ship);
-      playerScore.innerHTML = data.player[place].score;
       rotateAndPaintImage(ctx,image,data.player[i].rotation*TO_RADIANS,data.player[i].x,data.player[i].y,20,30);
     }
     for(var i = 0 ; i < data.bullet.length; i++)

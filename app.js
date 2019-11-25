@@ -122,7 +122,7 @@ var Player = function(id,rotation,ship,username){
 
         }
     }
-    
+
     Player.list[id] = self;
     return self;
 }
