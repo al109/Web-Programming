@@ -27,7 +27,6 @@ socket.on('ship',function(data){ //gets the data of ship chosen by user
 socket.on('newPositions',function(data){ //when newPositions socket is called the data is passed here
 
   ctx.clearRect(0,0,canvas.width,canvas.height); //clears the entire canvas
-
   for(var i = 0; i < data.player.length;i++){ //loops through all the values in the player array
 
       ScoreBoard[i] = document.getElementById("score" + (1+i)); //sets up the scoreboard from the html file
@@ -54,74 +53,74 @@ socket.on('newPositions',function(data){ //when newPositions socket is called th
                     limit: limit //sets the limit
                   });}
               else if(event.keyCode === 83){ //s
-                  limit = window.innerHeight;
-                  socket.emit('keyPress',{
-                    inputId:'down',
-                    state:true,
-                    rotation: 180,
-                    limit: window.innerHeight -40
+                  limit = window.innerHeight-40;//sets a new limit
+                  socket.emit('keyPress',{//when key is pressed
+                    inputId:'down',//send data of which key was pressed
+                    state:true,//Sets the state of key to be true
+                    rotation: 180,//sets the rotation to 180 since thats what the ships needs to be rotated to
+                    limit: limit //sends the limit
                   });}
-              else if(event.keyCode === 65){
-                limit = 5;//a
-                  socket.emit('keyPress',{
-                    inputId:'left',
-                    state:true,
-                    rotation:270,
-                    limit: limit
+              else if(event.keyCode === 65){//a 
+                limit = 5;//creates a new limit
+                  socket.emit('keyPress',{//when key is pressed
+                    inputId:'left',//sends data of which key was pressed
+                    state:true,//sets key state to true
+                    rotation:270,//sets the rotation to 270
+                    limit: limit//sends the limit
                   });}
-              else if(event.keyCode === 87){
-                  limit = 0; // w
-                  socket.emit('keyPress',{
-                    inputId:'up',
-                    state:true,
-                    rotation:0,
-                    limit: limit
+              else if(event.keyCode === 87){// w
+                  limit = 0; //sets a new limit
+                  socket.emit('keyPress',{//when key is pressed
+                    inputId:'up',//sends data of which key was pressed
+                    state:true,//sets key state to true
+                    rotation:0,//sets the rotation to 0
+                    limit: limit//sends the limit.
                   });}
-              if(event.keyCode === 32){
-                  console.log(limit);
-                  socket.emit('keyPress',{
-                      inputId:'attack',
-                      state:true,
-                      rotation:1,
-                      limit: limit
+              if(event.keyCode === 32){//space key
+                  console.log(limit);//sets a new limit
+                  socket.emit('keyPress',{//when key is pressed
+                      inputId:'attack',//sends data of which key was pressed
+                      state:true,//sets key state to true
+                      rotation:1,//placeholder value, rotation will do nothing here
+                      limit: limit//sets the limit to the same limit as the previous key.
                     });
               }
           }
-          document.onkeyup = function(event){
+          document.onkeyup = function(event){//when key is not being pressed anymore.
               if(event.keyCode === 68)    //d
                   socket.emit('keyPress',{
-                    inputId:'right',
-                    state:false,
-                    rotation:1,
-                    limit: limit
+                    inputId:'right',//sends key data
+                    state:false,//since key is no longer being pressed state is set to false
+                    rotation:1,//place holdeer rotation
+                    limit: limit//sets limit to previous limit
                   });
               else if(event.keyCode === 83)   //s
                   socket.emit('keyPress',{
-                    inputId:'down',
-                    state:false,
-                    rotation:1,
-                    limit: limit
+                    inputId:'down',//sends key data
+                    state:false,//since key is no longer being pressed state is set to false
+                    rotation:1,//place holdeer rotation
+                    limit: limit//sets limit to previous limit
                   });
               else if(event.keyCode === 65) //a
                   socket.emit('keyPress',{
-                    inputId:'left',
-                    state:false,
-                    rotation:1,
-                    limit: limit
+                    inputId:'left',//sends key data
+                    state:false,//since key is no longer being pressed state is set to false
+                    rotation:1,//place holdeer rotation
+                    limit: limit//sets limit to previous limit
                   });
               else if(event.keyCode === 87) // w
                   socket.emit('keyPress',{
-                    inputId:'up',
-                    state:false,
-                    rotation:1,
-                    limit: limit
+                    inputId:'up',//sends key data
+                    state:false,//since key is no longer being pressed state is set to false
+                    rotation:1,//place holdeer rotation
+                    limit: limit//sets limit to previous limit
                   });
               if(event.keyCode === 32){
                   socket.emit('keyPress',{
-                      inputId:'attack',
-                      state:false,
-                      rotation:1,
-                      limit: limit
+                      inputId:'attack',//sends key data
+                      state:false,//since key is no longer being pressed state is set to false
+                      rotation:1,//place holdeer rotation
+                      limit: limit//sets limit to previous limit
                         });
 
                       }

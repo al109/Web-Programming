@@ -70,7 +70,7 @@ okBtn.addEventListener('click',function(){ //event for when they want to go to t
     socket.emit('updateCon',{//updates number of connections
       con:1
     });
-  } if(noOfCon > 2){
+  } if(noOfCon > 10){
     var link = document.getElementById('link');
     link.setAttribute('href',"index.html"); //returns user when user has exceeded max number of connections
     alert("Too many connections!");
