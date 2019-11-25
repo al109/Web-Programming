@@ -46,7 +46,7 @@ var Entity = function(){
     return self;
 }
 
-var Player = function(id,rotation,ship){
+var Player = function(id,rotation,ship,username){
     var self = Entity();
     self.id = id;
     self.number = "" + Math.floor(10 * Math.random());
@@ -62,7 +62,7 @@ var Player = function(id,rotation,ship){
     self.maxSpd = 10;
     self.rotation = rotation;
     self.ship = ship;
-
+    self.username = username;
     var super_update = self.update;
     self.update = function(){
         self.updateSpd();
@@ -81,7 +81,7 @@ var Player = function(id,rotation,ship){
 
     self.updateSpd = function(){
         if(self.pressingRight){
-            if(self.x < self.limit -50){
+            if(self.x < self.limit){
                 self.spdX = self.maxSpd;
             }
             else{
@@ -127,7 +127,7 @@ var Player = function(id,rotation,ship){
 }
 Player.list = {};
 Player.onConnect = function(socket){
-    var player = Player(socket.id,0,SHIP_ID[SHIP_ID.length-1]);
+    var player = Player(socket.id,0,SHIP_ID[SHIP_ID.length-1],USERNAME_LIST[USERNAME_LIST.length-1]);
     socket.on('keyPress',function(data){
 
         if(data.inputId === 'left')
@@ -195,7 +195,8 @@ Player.update = function(){
             number:player.number,
             rotation:player.rotation,
             score:player.score,
-            ship:player.ship
+            ship:player.ship,
+            username:player.username
         });
     }
     return pack;
@@ -287,9 +288,6 @@ io.sockets.on('connection', function(socket){
     socket.emit('ship',{
 
       shipID:SHIP_ID[SHIP_ID.length-1]
-    });
-    socket.emit('usernames',{
-        usernames: USERNAME_LIST
     });
   });
 
