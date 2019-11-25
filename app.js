@@ -23,7 +23,7 @@ console.log("Server started");
 
 var io = require('socket.io')(serv,{});
 var listOfSockets = {};
-
+//some of the functionality of the game was inspired from a youtube series, here is a link to the playlist, https://www.youtube.com/watch?v=PfSwUOBL1YQ&list=PLcIaPHraYF7k4FbeGIDY-1mZZdjTu9QyL
 var Entity = function(){//This is created to avoide duplicate code in bullet and player variables.
     var self = {//creates all the variables need for bullets and player.
         x:150,
@@ -50,7 +50,7 @@ var Entity = function(){//This is created to avoide duplicate code in bullet and
 var Player = function(id,rotation,ship,username){
     var self = Entity(); //Calls Identity as a base for self
     self.id = id;//The id of the  PLayer
-    self.pressingRight = false;//The next 5 variables are there to indicate if a button is being pressed 
+    self.pressingRight = false;//The next 5 variables are there to indicate if a button is being pressed
     self.pressingLeft = false;
     self.pressingUp = false;
     self.pressingDown = false;
@@ -72,7 +72,7 @@ var Player = function(id,rotation,ship,username){
     }
     self.shootBullet = function(angle){//Function used to shoot the bullet.
         var b = Bullet(self.id,angle); //creates a bullet, with the players ID and the angle it will be shot at
-        b.x = self.x; //Put the bullet at the same x and y as the player 
+        b.x = self.x; //Put the bullet at the same x and y as the player
         b.y = self.y;
     }
 
@@ -82,7 +82,7 @@ var Player = function(id,rotation,ship,username){
             if(self.x < self.limit){//This makes sure the player cannot leave the canvas
                 self.spdX = self.maxSpd; //Sets the spd of the player equal to max speed, this is for the x coordinate
             }
-            else{//If the player is greater than the limit 
+            else{//If the player is greater than the limit
                 self.spdX = 0;//The speed gets set to zero so the player cant go any further.
             }
         }
@@ -91,7 +91,7 @@ var Player = function(id,rotation,ship,username){
             self.spdX = -self.maxSpd;//Sets the spd of the player equal to the negative max speed, this is for the x coordinate
                 //This means the ship will go left.
         }
-        else{//If the player is greater than the limit 
+        else{//If the player is greater than the limit
             self.spdX = 0;////The speed gets set to zero so the player cant go any further.
         }
         else
@@ -241,7 +241,7 @@ Bullet.update = function(){//Update function for the bullets
     var pack = [];//pack to send to the javascript file.
     for(var i in Bullet.list){//For each bullet in the list.
         var bullet = Bullet.list[i];
-        bullet.update();//Calls the update function made in the Bullet object variable 
+        bullet.update();//Calls the update function made in the Bullet object variable
         if(bullet.toRemove)//If the bullet.toRemove equals true then it gets deleted.
             delete Bullet.list[i];
         else
@@ -312,13 +312,13 @@ io.sockets.on('connection', function(socket){ //this function runs when there is
 });
 
 setInterval(function(){
-    var update = {
+    var update = { //this varaible store the updated positions for the player and bullet
         player:Player.update(),
         bullet:Bullet.update(),
     }
 
-    for(var i in listOfSockets){
+    for(var i in listOfSockets){ //this loops through all the connections
         var socket = listOfSockets[i];
-        socket.emit('newPositions',update);
+        socket.emit('newPositions',update); //this emits the connections with the updated player and bullet positions
     }
-},1000/25);
+},1000/25); //this function runs 4 times a second
