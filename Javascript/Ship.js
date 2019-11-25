@@ -7,8 +7,11 @@ var btn4 = document.getElementById('btn4');
 var btn5 = document.getElementById('btn5');
 var btn6 = document.getElementById('btn6');
 var okBtn = document.getElementById('ok');
+var noOfCon = 0;
 var clickList = [];
-
+socket.on('connections',function(data){
+  noOfCon = data.con;
+});
 //emit an even when someone logs in with new user
 btn1.addEventListener('click',function(){
   clickList.push("ship1");
@@ -63,6 +66,10 @@ okBtn.addEventListener('click',function(){
     var link = document.getElementById('link');
     link.setAttribute('href',"customise.html");
     alert("Please select a ship!");
+  } if(noOfCon > 2){
+    var link = document.getElementById('link');
+    link.setAttribute('href',"index.html");
+    alert("Too many connections!");
   }
 
 });

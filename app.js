@@ -19,6 +19,7 @@ app.use('/Javascript',express.static(__dirname + '/Javascript'));
 app.use('/Style',express.static(__dirname + '/Style'));
 
 serv.listen(2000);
+serv.maxConnections = 11;
 console.log("Server started");
 
 var io = require('socket.io')(serv,{});
@@ -268,7 +269,10 @@ io.sockets.on('connection', function(socket){
     socket.on('shipID',function(data){
       SHIP_ID.push(data.id);
     });
-
+    socket.emit('connections',{
+      con:USERNAME_LIST.length
+    });
+    console.log(SOCKET_LIST.length);
     socket.on('start',function(data){
     socket.id = Math.random();
     SOCKET_LIST[socket.id] = socket;
@@ -304,6 +308,7 @@ io.sockets.on('connection', function(socket){
           if (err) throw err;
           console.log("Number of records deleted: " + result.affectedRows);
         });
+
         delete USERNAME_LIST[place];
         delete SHIP_ID[place];
         delete PLACE[socket.id];
