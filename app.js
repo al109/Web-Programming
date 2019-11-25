@@ -19,107 +19,105 @@ app.use('/Javascript',express.static(__dirname + '/Javascript'));
 app.use('/Style',express.static(__dirname + '/Style'));
 
 serv.listen(2000);
-serv.maxConnections = 11;
 console.log("Server started");
 
 var io = require('socket.io')(serv,{});
 var SOCKET_LIST = {};
 
-var Entity = function(){
-    var self = {
+var Entity = function(){//This is created to avoide duplicate code in bullet and player variables.
+    var self = {//creates all the variables need for bullets and player.
         x:150,
         y:150,
         spdX:0,
         spdY:0,
         id:"",
     }
+    //calls updatePosition
     self.update = function(){
         self.updatePosition();
     }
-    self.updatePosition = function(){
+    self.updatePosition = function(){//This updates the position of the object.
 
-        self.x += self.spdX;
+        self.x += self.spdX;//adds the speeds on to the x and y positions so the player will move.
         self.y += self.spdY;
     }
-    self.getDistance = function(pt){
+    self.getDistance = function(pt){//This gets the distance between two objects.
         return Math.sqrt(Math.pow(self.x-pt.x,2) + Math.pow(self.y-pt.y,2));
     }
     return self;
 }
-
+//This is the player variable, this is where most of the data about the  player is stored
 var Player = function(id,rotation,ship,username){
-    var self = Entity();
-    self.id = id;
-    self.number = "" + Math.floor(10 * Math.random());
-    self.pressingRight = false;
+    var self = Entity(); //Calls Identity as a base for self
+    self.id = id;//The id of the  PLayer
+    self.pressingRight = false;//The next 5 variables are there to indicate if a button is being pressed 
     self.pressingLeft = false;
     self.pressingUp = false;
     self.pressingDown = false;
-    self.pressingSpace = false;
     self.pressingAttack = false;
-    self.score = 0;
-    self.limit = 0;
-    self.mouseAngle = 0;
-    self.maxSpd = 10;
-    self.rotation = rotation;
-    self.ship = ship;
-    self.username = username;
+    self.score = 0;//The players in-game score
+    self.limit = 0;//This is to limit where the player can go, so the don't go  outside of the canvas
+    self.maxSpd = 10; //This is the maximum speed of the player
+    self.rotation = rotation; //This indicates the orientation of the player's ship
+    self.ship = ship; //this which ship the player picked
+    self.username = username; //this is the players username
     var super_update = self.update;
     self.update = function(){
         self.updateSpd();
         super_update();
 
-        if(self.pressingAttack){
-            self.shootBullet(self.rotation-90);
+        if(self.pressingAttack){//If the space key is pressed, then this will = true
+            self.shootBullet(self.rotation-90);//calls to shoot the bullet with the angle the bullet will get shot at
         }
     }
-    self.shootBullet = function(angle){
-        var b = Bullet(self.id,angle);
-        b.x = self.x;
+    self.shootBullet = function(angle){//Function used to shoot the bullet.
+        var b = Bullet(self.id,angle); //creates a bullet, with the players ID and the angle it will be shot at
+        b.x = self.x; //Put the bullet at the same x and y as the player 
         b.y = self.y;
     }
 
     //
-    self.updateSpd = function(){
-        if(self.pressingRight){
-            if(self.x < self.limit){
-                self.spdX = self.maxSpd;
+    self.updateSpd = function(){//This updates the direction the player will go in
+        if(self.pressingRight){//If the d key is being pressed
+            if(self.x < self.limit){//This makes sure the player cannot leave the canvas
+                self.spdX = self.maxSpd; //Sets the spd of the player equal to max speed, this is for the x coordinate
             }
-            else{
-                self.spdX = 0;
+            else{//If the player is greater than the limit 
+                self.spdX = 0;//The speed gets set to zero so the player cant go any further.
             }
         }
-        else if(self.pressingLeft)
-        if(self.x > self.limit){
-            self.spdX = -self.maxSpd;
+        else if(self.pressingLeft)//If the A key is being pressed
+        if(self.x > self.limit){//This makes sure the player cannot leave the canvas
+            self.spdX = -self.maxSpd;//Sets the spd of the player equal to the negative max speed, this is for the x coordinate
+                //This means the ship will go left.
         }
-        else{
-            self.spdX = 0;
+        else{//If the player is greater than the limit 
+            self.spdX = 0;////The speed gets set to zero so the player cant go any further.
         }
         else
-            self.spdX = 0;
+            self.spdX = 0;//If neither left or right is being pressed then the speed for x gets set to 0
 
-        if(self.pressingDown){
+        if(self.pressingDown){//If the S key is being pressed.
 
-            if(self.y < self.limit  -40){
-                self.spdY = self.maxSpd;
+            if(self.y < self.limit - 40){//Makes sure player can't leave canvas
+                self.spdY = self.maxSpd;//sets speed of Y to maxspeed so character can go down
                 }
             else{
-                self.spdY = 0;
+                self.spdY = 0;//if reached the limits then speed gets set to 0
             }
             }
-        else if(self.pressingUp)
-            if(self.y > self.limit){
-                self.spdY = -self.maxSpd;
+        else if(self.pressingUp)//if the W key is being pressed
+            if(self.y > self.limit){//Checks that player is still within the limit
+                self.spdY = -self.maxSpd;//sets the speed of the ship to negative max speed so it can go up.
              }
             else{
-             self.spdY = 0;
+             self.spdY = 0;//if reached the limits then speed gets set to 0
             }
 
 
         else{
 
-            self.spdY = 0;
+            self.spdY = 0;//If neither left or right is being pressed then the speed for x gets set to 0
 
         }
     }
@@ -186,12 +184,12 @@ Player.onConnect = function(socket){
 Player.onDisconnect = function(socket){
     delete Player.list[socket];
 }
-Player.update = function(){
-    var pack = [];
-    for(var i in Player.list){
+Player.update = function(){//This function adds stuff to a list to be sent to the javascript
+    var pack = [];//creates the list
+    for(var i in Player.list){//For each  player in the game.
         var player = Player.list[i];
-        player.update();
-        pack.push({
+        player.update();//calls the update function in the player variable.
+        pack.push({//Pushes all the player data that needs to get sent to javascript
             x:player.x,
             y:player.y,
             number:player.number,
@@ -206,20 +204,20 @@ Player.update = function(){
 
 //This is the bullet.
 var Bullet = function(parent,angle){
-    var self = Entity();
-    self.id = Math.random();
+    var self = Entity();//This calls on entity as a base for the bullet.
+    self.id = Math.random();//Creates an ID for the bullet
     self.spdX = Math.cos(angle/180*Math.PI) * 20;//This calculates the velocity of the bullets x axis.
     self.spdY = Math.sin(angle/180*Math.PI) * 20;//This calculates the velocity of the bullets y axis.
-    self.parent = parent;
-    self.timer = 0;
-    self.toRemove = false;
+    self.parent = parent;//This stores which player shot the bullet
+    self.timer = 0;//This is a timer to make sure the bullet dosent stay on the screeen forever.
+    self.toRemove = false;//This checks if the bullet needs to dissapear from the screen
     var super_update = self.update;
-    self.update = function(){
-        if(self.timer++ > 100)
+    self.update = function(){//Updates the bullets position
+        if(self.timer++ > 100)//This is the timer that makes sure the bullet leaves after 100 loops
             self.toRemove = true;
         super_update();
 
-        for(var i in Player.list){
+        for(var i in Player.list){//For every player in the game.
             var p = Player.list[i];
             //If a player gets hit, thats not the player that shot the bullet
             if(self.getDistance(p) < 25 && self.parent !== p.id){
@@ -228,7 +226,6 @@ var Bullet = function(parent,angle){
                 p.y = 150;
                 //Adds 1 on to the score of the player that shot the bullet
                 Player.list[self.parent].score ++;
-                console.log(Player.list[self.parent].score + " " + self.parent);
                 //handle collision. ex: hp--;
                 self.toRemove = true;
             }
@@ -238,17 +235,17 @@ var Bullet = function(parent,angle){
     Bullet.list[self.id] = self;
     return self;
 }
-Bullet.list = {};
+Bullet.list = {};//ctreates a list for the bullets
 
-Bullet.update = function(){
-    var pack = [];
-    for(var i in Bullet.list){
+Bullet.update = function(){//Update function for the bullets
+    var pack = [];//pack to send to the javascript file.
+    for(var i in Bullet.list){//For each bullet in the list.
         var bullet = Bullet.list[i];
-        bullet.update();
-        if(bullet.toRemove)
+        bullet.update();//Calls the update function made in the Bullet object variable 
+        if(bullet.toRemove)//If the bullet.toRemove equals true then it gets deleted.
             delete Bullet.list[i];
         else
-            pack.push({
+            pack.push({//Adds the bullets x and y coordinates the pack
                 x:bullet.x,
                 y:bullet.y,
             });
