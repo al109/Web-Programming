@@ -19,10 +19,14 @@ var myGameArea = {
   }
 } //to do
 
+//javascript function to open the sidenav menu in game.html
 function openNav() {
+  //when the button is clicked this will set the sidenav menu's width to 250px, from 0px, making it visible on screen
   document.getElementById("mySidenav").style.width = "250px";
 }
 
+//javascript function to close the sidenav menu in game.html
 function closeNav() {
+  //when the close button is clicked this will set the sidenav menu's width back to 0px, making it disappear from the screen
   document.getElementById("mySidenav").style.width = "0";
 }
