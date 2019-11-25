@@ -70,7 +70,7 @@ okBtn.addEventListener('click',function(){
     var link = document.getElementById('link');
     link.setAttribute('href',"customise.html");
     alert("Please select a ship!");
-  } if(noOfCon > 10){
+  } if(noOfCon > 2){
     var link = document.getElementById('link');
     link.setAttribute('href',"index.html");
     alert("Too many connections!");

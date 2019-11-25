@@ -24,10 +24,10 @@ console.log("Server started");
 var io = require('socket.io')(serv,{});
 var listOfSockets = {};
 //some of the functionality of the game was inspired from a youtube series, here is a link to the playlist, https://www.youtube.com/watch?v=PfSwUOBL1YQ&list=PLcIaPHraYF7k4FbeGIDY-1mZZdjTu9QyL
-var Entity = function(){//This is created to avoide duplicate code in bullet and player variables.
+var Unit = function(){//This is created to avoide duplicate code in bullet and player variables.
     var self = {//creates all the variables need for bullets and player.
-        x:150,
-        y:150,
+        x:200,
+        y:200,
         spdX:0,
         spdY:0,
         id:"",
@@ -48,12 +48,12 @@ var Entity = function(){//This is created to avoide duplicate code in bullet and
 }
 //This is the player variable, this is where most of the data about the  player is stored
 var Player = function(id,rotation,ship,username){
-    var self = Entity(); //Calls Identity as a base for self
+    var self = Unit(); //Calls Identity as a base for self
     self.id = id;//The id of the  PLayer
-    self.pressingRight = false;//The next 5 variables are there to indicate if a button is being pressed
-    self.pressingLeft = false;
-    self.pressingUp = false;
-    self.pressingDown = false;
+    self.clickRight = false;//The next 5 variables are there to indicate if a button is being pressed
+    self.clickLeft = false;
+    self.clickUp = false;
+    self.clickDown = false;
     self.pressingAttack = false;
     self.score = 0;//The players in-game score
     self.limit = 0;//This is to limit where the player can go, so the don't go  outside of the canvas
@@ -61,10 +61,10 @@ var Player = function(id,rotation,ship,username){
     self.rotation = rotation; //This indicates the orientation of the player's ship
     self.ship = ship; //this which ship the player picked
     self.username = username; //this is the players username
-    var super_update = self.update;
+    var overwrite_update = self.update;
     self.update = function(){
         self.updateSpd(); //this is calling the update function contained within the player function
-        super_update(); //this calls the update function contained in the Entity function
+        overwrite_update(); //this calls the update function contained in the Entity function
 
         if(self.pressingAttack){//If the space key is pressed, then this will = true
             self.shootBullet(self.rotation-90);//calls to shoot the bullet with the angle the bullet will get shot at
@@ -78,7 +78,7 @@ var Player = function(id,rotation,ship,username){
 
     //
     self.updateSpd = function(){//This updates the direction the player will go in
-        if(self.pressingRight){//If the d key is being pressed
+        if(self.clickRight){//If the d key is being pressed
             if(self.x < self.limit){//This makes sure the player cannot leave the canvas
                 self.spdX = self.maxSpd; //Sets the spd of the player equal to max speed, this is for the x coordinate
             }
@@ -86,7 +86,7 @@ var Player = function(id,rotation,ship,username){
                 self.spdX = 0;//The speed gets set to zero so the player cant go any further.
             }
         }
-        else if(self.pressingLeft)//If the A key is being pressed
+        else if(self.clickLeft)//If the A key is being pressed
         if(self.x > self.limit){//This makes sure the player cannot leave the canvas
             self.spdX = -self.maxSpd;//Sets the spd of the player equal to the negative max speed, this is for the x coordinate
                 //This means the ship will go left.
@@ -97,7 +97,7 @@ var Player = function(id,rotation,ship,username){
         else
             self.spdX = 0;//If neither left or right is being pressed then the speed for x gets set to 0
 
-        if(self.pressingDown){//If the S key is being pressed.
+        if(self.clickDown){//If the S key is being pressed.
 
             if(self.y < self.limit - 40){//Makes sure player can't leave canvas
                 self.spdY = self.maxSpd;//sets speed of Y to maxspeed so character can go down
@@ -106,7 +106,7 @@ var Player = function(id,rotation,ship,username){
                 self.spdY = 0;//if reached the limits then speed gets set to 0
             }
             }
-        else if(self.pressingUp)//if the W key is being pressed
+        else if(self.clickUp)//if the W key is being pressed
             if(self.y > self.limit){//Checks that player is still within the limit
                 self.spdY = -self.maxSpd;//sets the speed of the ship to negative max speed so it can go up.
              }
@@ -126,20 +126,20 @@ var Player = function(id,rotation,ship,username){
     return self;
 }
 Player.list = {};
-Player.onConnect = function(socket){
-    var player = Player(socket.id,0,SHIP_ID[SHIP_ID.length-1],USERNAME_LIST[USERNAME_LIST.length-1]);
-    socket.on('keyPress',function(data){
+Player.onConnect = function(socket){ //this function is called when the user connect to the game file
+    var player = Player(socket.id,0,SHIP_ID[SHIP_ID.length-1],USERNAME_LIST[USERNAME_LIST.length-1]); //creates new player
+    socket.on('keyPress',function(data){ //this is called when then keyPress socket is emitted
 
-        if(data.inputId === 'left')
-            player.pressingLeft = data.state;
-            player.limit = data.limit;
-            if(data.rotation == 1){
+        if(data.inputId === 'left') //when the inputID of the keypress emitted is left
+            player.clickLeft = data.state; //the state of clickLeft is changed to true or false,true if key is held down, false if released
+            player.limit = data.limit; //limit of border is changed depending on key pressed
+            if(data.rotation == 1){ //if key is released keep rotation same as last key pressed
               player.rotation = player.rotation;
             } else {
-            player.rotation = data.rotation;
+            player.rotation = data.rotation; //otherwise set new rotation
 }
-        if(data.inputId === 'right')
-            player.pressingRight = data.state;
+        if(data.inputId === 'right') //same as before only difference is this is the right key
+            player.clickRight = data.state;
             player.limit = data.limit;
             if(data.rotation == 1){
               player.rotation = player.rotation;
@@ -148,8 +148,8 @@ Player.onConnect = function(socket){
 
   }
 
-        if(data.inputId === 'up')
-            player.pressingUp = data.state;
+        if(data.inputId === 'up')//same as before only difference is this is the up key
+            player.clickUp = data.state;
             player.limit = data.limit;
             if(data.rotation == 1){
               player.rotation = player.rotation;
@@ -159,8 +159,8 @@ Player.onConnect = function(socket){
 
 }
 
-        if(data.inputId === 'down')
-            player.pressingDown = data.state;
+        if(data.inputId === 'down') //same as before only difference is this is the down key
+            player.clickDown = data.state;
             player.limit = data.limit;
             if(data.rotation == 1){
               player.rotation = player.rotation;
@@ -169,20 +169,19 @@ Player.onConnect = function(socket){
 
 }
 
-        if(data.inputId === 'attack')
-            player.pressingAttack = data.state;
-            console.log(data.limit);
-            player.limit = data.limit;
-            if(data.rotation == 1){
+        if(data.inputId === 'attack') //when the user hits space bar to shoot
+            player.pressingAttack = data.state; //changes state of pressingAttack to true/false
+            player.limit = data.limit; //sets limit to new limit
+            if(data.rotation == 1){ //sets rotation to be the same as the last known rotation
               player.rotation = player.rotation;
             } else {
-            player.rotation = data.rotation;
+            player.rotation = data.rotation; //sets rotation to new rotation
 
           }
     });
 }
 Player.onDisconnect = function(socket){
-    delete Player.list[socket];
+    delete Player.list[socket.id]; //deletes player from list
 }
 Player.update = function(){//This function adds stuff to a list to be sent to the javascript
     var pack = [];//creates the list
@@ -204,7 +203,7 @@ Player.update = function(){//This function adds stuff to a list to be sent to th
 
 //This is the bullet.
 var Bullet = function(parent,angle){
-    var self = Entity();//This calls on entity as a base for the bullet.
+    var self = Unit();//This calls on entity as a base for the bullet.
     self.id = Math.random();//Creates an ID for the bullet
     self.spdX = Math.cos(angle/180*Math.PI) * 20;//This calculates the velocity of the bullets x axis.
     self.spdY = Math.sin(angle/180*Math.PI) * 20;//This calculates the velocity of the bullets y axis.
@@ -256,9 +255,11 @@ Bullet.update = function(){//Update function for the bullets
 var USERNAME_LIST = []; //this creates a list of all the usernames
 var SHIP_ID = []; //this creates a list of all the ids of the ships the players have chosen
 var PLACE = []; //creates an array containing a list of all the positions of where the usernames and shipIDs are stored in there respective arrays
+var AmountOfPlayers = [];
 var i = 0;
 
 io.sockets.on('connection', function(socket){ //this function runs when there is a websocket connection to the server
+    AmountOfPlayers.push(1);
     socket.on('username',function(data){ //this function takes in the username inputted by the user and pushes it into an array
       USERNAME_LIST.push(data.name);
     });
@@ -266,12 +267,13 @@ io.sockets.on('connection', function(socket){ //this function runs when there is
     socket.on('shipID',function(data){ //this function takes in the shipID of the users chosen ship and pushes it into an array
       SHIP_ID.push(data.id);
     });
-    var length = USERNAME_LIST.length;
+
     socket.emit('connections',{ //this emits the number of playes currently in the lobby
-      con:length
+      con:AmountOfPlayers.length
     });
 
     socket.on('start',function(data){//this function starts when the user enters the game screen
+
     listOfSockets[socket.id] = socket; //this adds each connection to the game
     Player.onConnect(socket); //this creates a new player when a new player joins
     PLACE[socket.id] = i; //this adds the position of each username and shipID to an array to use for later
@@ -292,6 +294,7 @@ io.sockets.on('connection', function(socket){ //this function runs when there is
   });
 
     socket.on('disconnect',function(){ //this function is called when the user disconnects
+        AmountOfPlayers.shift();
         delete listOfSockets[socket.id]; //this deletes the socket connection id the user made when they disconnect
         var place = PLACE[socket.id]; //this finds the place of the username and shipID
         var sql = "DELETE FROM Users WHERE username = ?" //the sql syntax for deleting a row in the database
@@ -306,7 +309,7 @@ io.sockets.on('connection', function(socket){ //this function runs when there is
         delete USERNAME_LIST[place]; //deletes user from array
         delete SHIP_ID[place]; //deletes shipID from array
         delete PLACE[socket.id]; //deletes number where shipID and username exists from array
-        Player.onDisconnect(socket.id); //removes the players
+        Player.onDisconnect(socket); //removes the players
 
 });
 });
