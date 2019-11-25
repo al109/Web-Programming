@@ -13,10 +13,10 @@ loginButton.addEventListener('click',function()
   if(userInput.value == ""){
     var link = document.getElementById('file');
     link.setAttribute('href',"index.html");
-    alert("please input a username");
+    alert("please input a username"); //returns user to login page if they haven't entered a username
   } else
   socket.emit('username',{
-    name: userInput.value
+    name: userInput.value //emits username when clicked
 
   });
 });

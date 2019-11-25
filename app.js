@@ -268,11 +268,19 @@ io.sockets.on('connection', function(socket){ //this function runs when there is
       SHIP_ID.push(data.id);
 
     });
+    socket.on('updateCon',function(data){
+      if(data.con = 1){
+        AmountOfPlayers.push(1);
+      } else{
+      AmountOfPlayers.push(1);
+      AmountOfPlayers.push(1);
+    }
+    });
     socket.emit('connections',{ //this emits the number of playes currently in the lobby
       con:AmountOfPlayers.length
     });
     socket.on('start',function(data){//this function starts when the user enters the game screen
-      AmountOfPlayers.push(1);
+      AmountOfPlayers.push(1); //this was a quick solution to our max connection problem
       AmountOfPlayers.push(1);
       AmountOfPlayers.push(1);
     listOfSockets[socket.id] = socket; //this adds each connection to the game

@@ -127,7 +127,7 @@ socket.on('newPositions',function(data){ //when newPositions socket is called th
                       }
 
 }
-function Rotate ( ctx, img, angle , posX, posY, y, x ) { //this function rotates and prints an image, it was inspired off this function,
+function Rotate ( ctx, img, angle , posX, posY, y, x ) { //this function rotates and prints an image, it was inspired from a function i saw on stackoverflow, https://stackoverflow.com/questions/17411991/html5-canvas-rotate-image
   ctx.translate( posX, posY );
   ctx.rotate( angle );
   ctx.drawImage( img, -x, -y ,40,40);
