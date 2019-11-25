@@ -14,7 +14,7 @@ loginButton.addEventListener('click',function()
     var link = document.getElementById('file');
     link.setAttribute('href',"index.html");
     alert("please input a username");
-  }
+  } else
   socket.emit('username',{
     name: userInput.value
 

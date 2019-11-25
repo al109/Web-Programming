@@ -26,8 +26,8 @@ var listOfSockets = {};
 //some of the functionality of the game was inspired from a youtube series, here is a link to the playlist, https://www.youtube.com/watch?v=PfSwUOBL1YQ&list=PLcIaPHraYF7k4FbeGIDY-1mZZdjTu9QyL
 var Unit = function(){//This is created to avoide duplicate code in bullet and player variables.
     var self = {//creates all the variables need for bullets and player.
-        x:200,
-        y:200,
+        x:250,
+        y:250,
         spdX:0,
         spdY:0,
         id:"",
@@ -259,21 +259,22 @@ var AmountOfPlayers = [];
 var i = 0;
 
 io.sockets.on('connection', function(socket){ //this function runs when there is a websocket connection to the server
-    AmountOfPlayers.push(1);
+
     socket.on('username',function(data){ //this function takes in the username inputted by the user and pushes it into an array
       USERNAME_LIST.push(data.name);
     });
 
     socket.on('shipID',function(data){ //this function takes in the shipID of the users chosen ship and pushes it into an array
       SHIP_ID.push(data.id);
-    });
 
+    });
     socket.emit('connections',{ //this emits the number of playes currently in the lobby
       con:AmountOfPlayers.length
     });
-
     socket.on('start',function(data){//this function starts when the user enters the game screen
-
+      AmountOfPlayers.push(1);
+      AmountOfPlayers.push(1);
+      AmountOfPlayers.push(1);
     listOfSockets[socket.id] = socket; //this adds each connection to the game
     Player.onConnect(socket); //this creates a new player when a new player joins
     PLACE[socket.id] = i; //this adds the position of each username and shipID to an array to use for later
