@@ -23,7 +23,7 @@ serv.maxConnections = 11;
 console.log("Server started");
 
 var io = require('socket.io')(serv,{});
-var SOCKET_LIST = {};
+var listOfSockets = {};
 
 var Entity = function(){
     var self = {
@@ -66,8 +66,8 @@ var Player = function(id,rotation,ship,username){
     self.username = username;
     var super_update = self.update;
     self.update = function(){
-        self.updateSpd();
-        super_update();
+        self.updateSpd(); //this is calling the update function contained within the player function
+        super_update(); //this calls the update function contained in the Entity function
 
         if(self.pressingAttack){
             self.shootBullet(self.rotation-90);
@@ -256,75 +256,72 @@ Bullet.update = function(){
     return pack;
 }
 
-var USERNAME_LIST = [];
-var SHIP_ID = [];
-var PLACE = [];
+var USERNAME_LIST = []; //this creates a list of all the usernames
+var SHIP_ID = []; //this creates a list of all the ids of the ships the players have chosen
+var PLACE = []; //creates an array containing a list of all the positions of where the usernames and shipIDs are stored in there respective arrays
 var i = 0;
 
-io.sockets.on('connection', function(socket){
-    socket.on('username',function(data){
+io.sockets.on('connection', function(socket){ //this function runs when there is a websocket connection to the server
+    socket.on('username',function(data){ //this function takes in the username inputted by the user and pushes it into an array
       USERNAME_LIST.push(data.name);
     });
 
-    socket.on('shipID',function(data){
+    socket.on('shipID',function(data){ //this function takes in the shipID of the users chosen ship and pushes it into an array
       SHIP_ID.push(data.id);
     });
-    socket.emit('connections',{
-      con:USERNAME_LIST.length
+    var length = USERNAME_LIST.length;
+    socket.emit('connections',{ //this emits the number of playes currently in the lobby
+      con:length
     });
-    console.log(SOCKET_LIST.length);
-    socket.on('start',function(data){
-    socket.id = Math.random();
-    SOCKET_LIST[socket.id] = socket;
-    Player.onConnect(socket);
-    PLACE[socket.id] = i;
+
+    socket.on('start',function(data){//this function starts when the user enters the game screen
+    listOfSockets[socket.id] = socket; //this adds each connection to the game
+    Player.onConnect(socket); //this creates a new player when a new player joins
+    PLACE[socket.id] = i; //this adds the position of each username and shipID to an array to use for later
     i++;
-    socket.emit('place',{
-      place:PLACE[socket.id]
-    });
-    var sql = "INSERT INTO Users (username,shiptype) VALUES ?"
+    var sql = "INSERT INTO Users (username,shiptype) VALUES ?" //this contains the necessary sql syntax to store a user and the ship they chose in a database
     var values = [
-      [USERNAME_LIST[USERNAME_LIST.length-1],SHIP_ID[SHIP_ID.length-1]]
+      [USERNAME_LIST[USERNAME_LIST.length-1],SHIP_ID[SHIP_ID.length-1]] //this value store the values you want to add
     ];
-    con.query(sql,[values],function(err,result){
+    con.query(sql,[values],function(err,result){ //this function queries and adds the new data
       if (err) throw err;
-      console.log("Number of records inserted: " + result.affectedRows);
+      console.log("Number of records inserted: " + result.affectedRows); //this line logs to the console how many rows in the database were affected
     });
 
     socket.emit('ship',{
 
-      shipID:SHIP_ID[SHIP_ID.length-1]
+      shipID:SHIP_ID[SHIP_ID.length-1] //this emits the shipID that the player chose
     });
   });
 
-    socket.on('disconnect',function(){
-        delete SOCKET_LIST[socket.id];
-        var place = PLACE[socket.id];
-        var sql = "DELETE FROM Users WHERE username = ?"
+    socket.on('disconnect',function(){ //this function is called when the user disconnects
+        delete listOfSockets[socket.id]; //this deletes the socket connection id the user made when they disconnect
+        var place = PLACE[socket.id]; //this finds the place of the username and shipID
+        var sql = "DELETE FROM Users WHERE username = ?" //the sql syntax for deleting a row in the database
         var values = [
-          [[USERNAME_LIST[place]]]
+          [[USERNAME_LIST[place]]] //value of username
         ];
-        con.query(sql,[values],function(err,result){
+        con.query(sql,[values],function(err,result){ //queries database to delete user
           if (err) throw err;
           console.log("Number of records deleted: " + result.affectedRows);
         });
 
-        delete USERNAME_LIST[place];
-        delete SHIP_ID[place];
-        delete PLACE[socket.id];
-        Player.onDisconnect(socket.id);
+        delete USERNAME_LIST[place]; //deletes user from array
+        delete SHIP_ID[place]; //deletes shipID from array
+        delete PLACE[socket.id]; //deletes number where shipID and username exists from array
+        Player.onDisconnect(socket.id); //removes the players
 
 });
 });
 
 setInterval(function(){
-    var pack = {
+    var update = {
         player:Player.update(),
         bullet:Bullet.update(),
     }
 
-    for(var i in SOCKET_LIST){
-        var socket = SOCKET_LIST[i];
-        socket.emit('newPositions',pack);
+    for(var i in listOfSockets){
+        var socket = listOfSockets[i];
+        socket.emit('newPositions',update);
     }
 },1000/25);
