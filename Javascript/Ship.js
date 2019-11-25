@@ -12,6 +12,10 @@ var clickList = [];
 socket.on('connections',function(data){
   noOfCon = data.con;
 });
+
+socket.on('disconnect',function(){
+  noOfCon --;
+});
 //emit an even when someone logs in with new user
 btn1.addEventListener('click',function(){
   clickList.push("ship1");
@@ -60,7 +64,7 @@ btn6.addEventListener('click',function(){
 
   });
 });
-
+console.log(noOfCon);
 okBtn.addEventListener('click',function(){
   if(clickList.length == 0){
     var link = document.getElementById('link');
